@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#06090f">
+<meta name="description" content="Noventra Launch — Launch projects on TON">
+<title>Noventra Launch</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+:root{
+  --bg:#06090f;
+  --bg2:#0a0f18;
+  --card:#0e1520;
+  --card2:#121a27;
+  --card3:#161f2e;
+  --border:#1c2736;
+  --border2:#26354a;
+  --text:#f1f5f9;
+  --muted:#7b8ca3;
+  --muted2:#5a6b82;
+
+  --blue:#3da9ff;
+  --blue2:#1e90e8;
+  --green:#22d39a;
+  --yellow:#f5c14a;
+  --red:#ff5d6c;
+  --purple:#8b6cff;
+
+  --blue-dim:#3da9ff18;
+  --green-dim:#22d39a18;
+  --yellow-dim:#f5c14a18;
+  --red-dim:#ff5d6c18;
+  --purple-dim:#8b6cff18;
+
+  --radius:16px;
+  --radius-sm:12px;
+  --shadow:0 8px 32px rgba(0,0,0,.35);
+
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
+  "Helvetica Neue",Arial,sans-serif;
+
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+  margin:0;
+  padding:0;
+}
+
+html,body{
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font);
+  -webkit-font-smoothing:antialiased;
+}
+
+body{
+  overflow-x:hidden;
+  line-height:1.5;
+}
+
+button,input,select,textarea{
+  font:inherit;
+  border:none;
+  outline:none;
+  color:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  width:100%;
+  max-width:680px;
+  margin:0 auto;
+  padding:12px 14px 100px;
+}
+
+/* HEADER */
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:22px;
+  padding-top:4px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.logo{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  object-fit:cover;
+  border:1px solid var(--border2);
+  background:#0b1018;
+}
+
+.brand-title{
+  font-size:16px;
+  font-weight:900;
+}
+
+.brand-sub{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:1px;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.network{
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.4px;
+  color:var(--blue);
+  border:1px solid #1a3a52;
+  background:#0c1925;
+}
+
+.lang-btn{
+  padding:6px 10px;
+  border-radius:20px;
+  background:var(--card2);
+  color:#c5d0dc;
+  border:1px solid var(--border);
+  font-size:10px;
+  font-weight:800;
+}
+
+.lang-area{
+  position:relative;
+}
+
+.lang-menu{
+  display:none;
+  position:absolute;
+  right:0;
+  top:36px;
+  z-index:100;
+  min-width:125px;
+  background:var(--card3);
+  border:1px solid var(--border2);
+  border-radius:12px;
+  padding:4px;
+  box-shadow:var(--shadow);
+}
+
+.lang-menu.open{
+  display:block;
+}
+
+.lang-menu button{
+  display:block;
+  width:100%;
+  text-align:left;
+  padding:9px 12px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:600;
+  background:none;
+}
+
+.lang-menu button:active{
+  background:#1a2636;
+}
+
+/* HERO */
+
+.hero{
+  margin-bottom:18px;
+}
+
+.badge{
+  display:inline-flex;
+  padding:5px 9px;
+  border-radius:8px;
+  background:var(--blue-dim);
+  border:1px solid #3da9ff30;
+  color:#70c2ff;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.7px;
+  margin-bottom:10px;
+}
+
+.hero h1{
+  font-size:28px;
+  line-height:1.1;
+  font-weight:900;
+  letter-spacing:-.8px;
+}
+
+.hero h1 span{
+  color:var(--blue);
+}
+
+.hero p{
+  margin-top:9px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55;
+  max-width:470px;
+}
+
+/* CREATE */
+
+.create-card{
+  background:
+    linear-gradient(145deg,#101c2a,#0b121c);
+  border:1px solid #21354a;
+  border-radius:var(--radius);
+  padding:18px;
+  margin-bottom:18px;
+  box-shadow:var(--shadow);
+}
+
+.create-top{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.create-icon{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+  background:var(--blue-dim);
+  border:1px solid #3da9ff30;
+}
+
+.create-info{
+  flex:1;
+}
+
+.create-title{
+  font-size:15px;
+  font-weight:900;
+}
+
+.create-desc{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+}
+
+.create-btn{
+  width:100%;
+  height:48px;
+  margin-top:15px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  color:#031018;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.3px;
+}
+
+/* SECTION */
+
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:20px 2px 9px;
+}
+
+.section-title{
+  font-size:12px;
+  font-weight:900;
+}
+
+.section-sub{
+  font-size:10px;
+  color:var(--muted2);
+}
+
+/* FILTERS */
+
+.filters{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  margin-bottom:10px;
+}
+
+.filters::-webkit-scrollbar{
+  display:none;
+}
+
+.filter{
+  white-space:nowrap;
+  padding:7px 11px;
+  border-radius:20px;
+  border:1px solid var(--border);
+  background:var(--card2);
+  color:var(--muted);
+  font-size:10px;
+  font-weight:800;
+}
+
+.filter.active{
+  color:var(--blue);
+  border-color:#1c4a6e;
+  background:#102337;
+}
+
+/* LAUNCH CARDS */
+
+.launch-list{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+
+.launch-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:14px;
+}
+
+.launch-top{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.launch-logo{
+  width:48px;
+  height:48px;
+  border-radius:13px;
+  object-fit:cover;
+  background:#0a1018;
+  border:1px solid var(--border2);
+  flex-shrink:0;
+}
+
+.launch-logo.fallback{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:18px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+}
+
+.launch-info{
+  flex:1;
+  min-width:0;
+}
+
+.launch-name{
+  font-size:14px;
+  font-weight:900;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.launch-symbol{
+  color:var(--blue);
+  font-size:10px;
+  font-weight:800;
+  margin-top:1px;
+}
+
+.launch-status{
+  padding:5px 8px;
+  border-radius:7px;
+  font-size:8px;
+  font-weight:900;
+}
+
+.status-live{
+  color:var(--green);
+  background:var(--green-dim);
+  border:1px solid #22d39a30;
+}
+
+.status-upcoming{
+  color:var(--yellow);
+  background:var(--yellow-dim);
+  border:1px solid #f5c14a30;
+}
+
+.status-ended{
+  color:var(--muted);
+  background:#18212d;
+  border:1px solid var(--border);
+}
+
+.launch-progress{
+  margin-top:14px;
+}
+
+.progress-head{
+  display:flex;
+  justify-content:space-between;
+  font-size:9px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.progress-bar{
+  height:6px;
+  background:#182331;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+  border-radius:20px;
+  background:linear-gradient(90deg,var(--blue),var(--purple));
+}
+
+.launch-meta{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:6px;
+  margin-top:12px;
+}
+
+.meta{
+  background:#0a1018;
+  border:1px solid #182332;
+  border-radius:9px;
+  padding:8px;
+}
+
+.meta-label{
+  color:var(--muted2);
+  font-size:8px;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+}
+
+.meta-value{
+  margin-top:2px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.launch-open{
+  width:100%;
+  height:40px;
+  border-radius:10px;
+  margin-top:10px;
+  background:var(--card2);
+  border:1px solid var(--border);
+  color:#d7e2ed;
+  font-size:10px;
+  font-weight:900;
+}
+
+.launch-open:active,
+.create-btn:active{
+  transform:scale(.98);
+}
+
+/* EMPTY */
+
+.empty{
+  display:none;
+  text-align:center;
+  padding:35px 15px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+}
+
+.empty-icon{
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.empty-title{
+  font-size:13px;
+  font-weight:800;
+}
+
+.empty-text{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+/* CREATE SCREEN */
+
+.create-screen{
+  display:none;
+}
+
+.back-btn{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.form-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:15px;
+  margin-bottom:10px;
+}
+
+.form-title{
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.form-group{
+  margin-bottom:12px;
+}
+
+.form-group:last-child{
+  margin-bottom:0;
+}
+
+.form-label{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  margin-bottom:6px;
+}
+
+.form-input,
+.form-select{
+  width:100%;
+  height:44px;
+  border-radius:10px;
+  border:1px solid #253244;
+  background:#080e16;
+  padding:0 12px;
+  font-size:12px;
+}
+
+.form-input:focus,
+.form-select:focus{
+  border-color:var(--blue);
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.type-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.type-option{
+  padding:13px 10px;
+  border-radius:11px;
+  background:#0a1018;
+  border:1px solid var(--border);
+  cursor:pointer;
+}
+
+.type-option.active{
+  border-color:#287db5;
+  background:#0d2030;
+}
+
+.type-name{
+  font-size:11px;
+  font-weight:900;
+}
+
+.type-desc{
+  margin-top:3px;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.4;
+}
+
+.launch-submit{
+  width:100%;
+  height:48px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  color:#031018;
+  font-size:12px;
+  font-weight:900;
+  margin-top:5px;
+}
+
+.notice{
+  padding:11px 12px;
+  border-radius:10px;
+  background:var(--yellow-dim);
+  border:1px solid #f5c14a25;
+  color:#d9b85d;
+  font-size:9px;
+  line-height:1.5;
+  margin-top:10px;
+}
+
+/* DETAIL MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:none;
+  align-items:flex-end;
+  background:rgba(0,0,0,.68);
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:680px;
+  margin:0 auto;
+  background:var(--bg2);
+  border:1px solid var(--border2);
+  border-bottom:0;
+  border-radius:20px 20px 0 0;
+  padding:18px 14px 28px;
+  max-height:85vh;
+  overflow:auto;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.modal-title{
+  font-size:16px;
+  font-weight:900;
+}
+
+.modal-close{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  background:var(--card2);
+  color:var(--muted);
+  font-size:18px;
+}
+
+.detail-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.detail-box{
+  padding:12px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:11px;
+}
+
+.detail-label{
+  color:var(--muted);
+  font-size:8px;
+  text-transform:uppercase;
+}
+
+.detail-value{
+  margin-top:4px;
+  font-size:12px;
+  font-weight:900;
+}
+
+/* FOOTER */
+
+.footer{
+  text-align:center;
+  margin-top:28px;
+  color:var(--muted2);
+  font-size:9px;
+  line-height:1.7;
+}
+
+.footer strong{
+  color:var(--muted);
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--card3);
+  border:1px solid var(--border2);
+  padding:10px 16px;
+  border-radius:11px;
+  font-size:11px;
+  font-weight:800;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:900;
+  white-space:nowrap;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:390px){
+
+  .hero h1{
+    font-size:24px;
+  }
+
+  .network{
+    display:none;
+  }
+
+  .launch-meta{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .launch-meta .meta:last-child{
+    grid-column:1/-1;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+
+  <div class="brand">
+
+    <img
+      class="logo"
+      src="https://raw.githubusercontent.com/aytekinm099-pixel/Noventra-Signal/main/logo.png"
+      onerror="this.style.display='none'"
+      alt="Noventra"
+    >
+
+    <div>
+      <div class="brand-title">Noventra Launch</div>
+      <div class="brand-sub" data-i18n="subtitle">
+        TON Launchpad
+      </div>
+    </div>
+
+  </div>
+
+  <div class="header-right">
+
+    <div class="network">
+      TON MAINNET
+    </div>
+
+    <div class="lang-area">
+
+      <button class="lang-btn" id="langBtn">
+        EN ▾
+      </button>
+
+      <div class="lang-menu" id="langMenu">
+
+        <button data-lang="en">
+          🇬🇧 English
+        </button>
+
+        <button data-lang="tr">
+          🇹🇷 Türkçe
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- HOME -->
+
+<main id="homeScreen">
+
+<section class="hero">
+
+  <div class="badge">
+    NOVENTRA LAUNCHPAD
+  </div>
+
+  <h1>
+    <span>Launch.</span> Build. Grow.
+  </h1>
+
+  <p data-i18n="hero">
+    Discover and launch projects on TON with Noventra.
+    Simple tools for builders and communities.
+  </p>
+
+</section>
+
+
+<section class="create-card">
+
+  <div class="create-top">
+
+    <div class="create-icon">
+      🚀
+    </div>
+
+    <div class="create-info">
+
+      <div class="create-title" data-i18n="createTitle">
+        Launch your project
+      </div>
+
+      <div class="create-desc" data-i18n="createDesc">
+        Create a new TON launch
+      </div>
+
+    </div>
+
+  </div>
+
+  <button class="create-btn" id="createBtn" data-i18n="createButton">
+    + CREATE LAUNCH
+  </button>
+
+</section>
+
+
+<div class="section-heading">
+
+  <div class="section-title" data-i18n="featured">
+    Featured Launches
+  </div>
+
+  <div class="section-sub">
+    TON
+  </div>
+
+</div>
+
+
+<div class="filters">
+
+  <button class="filter active" data-filter="all">
+    All
+  </button>
+
+  <button class="filter" data-filter="live">
+    Live
+  </button>
+
+  <button class="filter" data-filter="upcoming">
+    Upcoming
+  </button>
+
+  <button class="filter" data-filter="ended">
+    Ended
+  </button>
+
+</div>
+
+
+<div class="launch-list" id="launchList"></div>
+
+
+<div class="empty" id="emptyState">
+
+  <div class="empty-icon">
+    🚀
+  </div>
+
+  <div class="empty-title" data-i18n="emptyTitle">
+    No launches found
+  </div>
+
+  <div class="empty-text" data-i18n="emptyText">
+    New launches will appear here.
+  </div>
+
+</div>
+
+
+<footer class="footer">
+
+  <strong>Noventra Launch</strong>
+
+  <br>
+
+  <span data-i18n="footer">
+    Launchpad infrastructure for TON · DYOR
+  </span>
+
+</footer>
+
+</main>
+
+
+<!-- CREATE -->
+
+<section class="create-screen" id="createScreen">
+
+  <button class="back-btn" id="backBtn">
+    ← <span data-i18n="back">Back</span>
+  </button>
+
+
+  <div class="hero">
+
+    <div class="badge">
+      CREATE LAUNCH
+    </div>
+
+    <h1 data-i18n="newLaunch">
+      Create your launch
+    </h1>
+
+    <p data-i18n="newLaunchDesc">
+      Configure your project before connecting the TON blockchain.
+    </p>
+
+  </div>
+
+
+  <div class="form-card">
+
+    <div class="form-title" data-i18n="projectInfo">
+      Project Information
+    </div>
+
+
+    <div class="form-group">
+
+      <label class="form-label" data-i18n="projectName">
+        Project Name
+      </label>
+
+      <input
+        class="form-input"
+        id="projectName"
+        placeholder="Example Project"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label class="form-label" data-i18n="symbol">
+        Token Symbol
+      </label>
+
+      <input
+        class="form-input"
+        id="tokenSymbol"
+        placeholder="TOKEN"
+        maxlength="12"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label class="form-label" data-i18n="logo">
+        Logo URL
+      </label>
+
+      <input
+        class="form-input"
+        id="logoUrl"
+        placeholder="https://..."
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label class="form-label" data-i18n="description">
+        Description
+      </label>
+
+      <textarea
+        class="form-input"
+        id="projectDescription"
+        style="height:80px;padding-top:12px;resize:none"
+        placeholder="Describe your project..."
+      ></textarea>
+
+    </div>
+
+  </div>
+
+
+  <div class="form-card">
+
+    <div class="form-title" data-i18n="launchType">
+      Launch Type
+    </div>
+
+
+    <div class="type-grid">
+
+      <div class="type-option active" data-type="fair">
+
+        <div class="type-name">
+          Fair Launch
+        </div>
+
+        <div class="type-desc" data-i18n="fairDesc">
+          Community-first launch model.
+        </div>
+
+      </div>
+
+
+      <div class="type-option" data-type="presale">
+
+        <div class="type-name">
+          Presale
+        </div>
+
+        <div class="type-desc" data-i18n="presaleDesc">
+          Raise funds before public launch.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="form-card">
+
+    <div class="form-title" data-i18n="tokenSettings">
+      Token Settings
+    </div>
+
+
+    <div class="form-group">
+
+      <label class="form-label" data-i18n="totalSupply">
+        Total Supply
+      </label>
+
+      <input
+        class="form-input"
+        id="totalSupply"
+        type="number"
+        placeholder="1000000000"
+      >
+
+    </div>
+
+
+    <div class="form-grid">
+
+      <div class="form-group">
+
+        <label class="form-label" data-i18n="decimals">
+          Decimals
+        </label>
+
+        <select class="form-select" id="decimals">
+
+          <option value="9">
+            9
+          </option>
+
+          <option value="6">
+            6
+          </option>
+
+          <option value="3">
+            3
+          </option>
+
+          <option value="0">
+            0
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label" data-i18n="price">
+          Token Price
+        </label>
+
+        <input
+          class="form-input"
+          id="tokenPrice"
+          type="number"
+          step="any"
+          placeholder="0.001"
+        >
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="form-card">
+
+    <div class="form-title" data-i18n="saleSettings">
+      Sale Settings
+    </div>
+
+
+    <div class="form-grid">
+
+      <div class="form-group">
+
+        <label class="form-label" data-i18n="softCap">
+          Soft Cap
+        </label>
+
+        <input
+          class="form-input"
+          id="softCap"
+          type="number"
+          step="any"
+          placeholder="50"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label" data-i18n="hardCap">
+          Hard Cap
+        </label>
+
+        <input
+          class="form-input"
+          id="hardCap"
+          type="number"
+          step="any"
+          placeholder="500"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label class="form-label" data-i18n="currency">
+        Raise Currency
+      </label>
+
+      <select class="form-select" id="currency">
+
+        <option>
+          TON
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+  <button class="launch-submit" id="launchSubmit" data-i18n="continue">
+    CONTINUE
+  </button>
+
+
+  <div class="notice" data-i18n="notice">
+    This first version only prepares your launch configuration.
+    Wallet connection and on-chain transactions will be added in a later version.
+  </div>
+
+</section>
+
+</div>
+
+
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <div class="modal-title" id="modalTitle">
+        Launch
+      </div>
+
+      <button class="modal-close" id="modalClose">
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="detail-grid">
+
+      <div class="detail-box">
+
+        <div class="detail-label">
+          Status
+        </div>
+
+        <div class="detail-value" id="detailStatus">
+          —
+        </div>
+
+      </div>
+
+
+      <div class="detail-box">
+
+        <div class="detail-label">
+          Type
+        </div>
+
+        <div class="detail-value" id="detailType">
+          —
+        </div>
+
+      </div>
+
+
+      <div class="detail-box">
+
+        <div class="detail-label">
+          Raised
+        </div>
+
+        <div class="detail-value" id="detailRaised">
+          —
+        </div>
+
+      </div>
+
+
+      <div class="detail-box">
+
+        <div class="detail-label">
+          Target
+        </div>
+
+        <div class="detail-value" id="detailTarget">
+          —
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* ================================
+   TELEGRAM
+================================ */
+
+const tg = window.Telegram?.WebApp;
+
+if(tg){
+
+  tg.ready();
+  tg.expand();
+
+  try{
+    tg.setHeaderColor?.("#06090f");
+    tg.setBackgroundColor?.("#06090f");
+  }catch{}
+
+}
+
+
+/* ================================
+   STATE
+================================ */
+
+let lang =
+  localStorage.getItem("noventra_launch_language") || "en";
+
+let selectedType = "fair";
+
+
+/* ================================
+   TRANSLATIONS
+================================ */
+
+const T = {
+
+en:{
+
+subtitle:"TON Launchpad",
+
+hero:"Discover and launch projects on TON with Noventra. Simple tools for builders and communities.",
+
+createTitle:"Launch your project",
+createDesc:"Create a new TON launch",
+createButton:"+ CREATE LAUNCH",
+
+featured:"Featured Launches",
+
+emptyTitle:"No launches found",
+emptyText:"New launches will appear here.",
+
+footer:"Launchpad infrastructure for TON · DYOR",
+
+back:"Back",
+
+newLaunch:"Create your launch",
+
+newLaunchDesc:
+"Configure your project before connecting the TON blockchain.",
+
+projectInfo:"Project Information",
+projectName:"Project Name",
+symbol:"Token Symbol",
+logo:"Logo URL",
+description:"Description",
+
+launchType:"Launch Type",
+
+fairDesc:"Community-first launch model.",
+presaleDesc:"Raise funds before public launch.",
+
+tokenSettings:"Token Settings",
+totalSupply:"Total Supply",
+decimals:"Decimals",
+price:"Token Price",
+
+saleSettings:"Sale Settings",
+softCap:"Soft Cap",
+hardCap:"Hard Cap",
+currency:"Raise Currency",
+
+continue:"CONTINUE",
+
+notice:
+"This first version only prepares your launch configuration. Wallet connection and on-chain transactions will be added in a later version."
+
+},
+
+tr:{
+
+subtitle:"TON Launchpad",
+
+hero:
+"Noventra ile TON üzerinde projeleri keşfet ve başlat. Geliştiriciler ve topluluklar için sade araçlar.",
+
+createTitle:"Projenizi başlatın",
+createDesc:"Yeni bir TON launch oluşturun",
+createButton:"+ LAUNCH OLUŞTUR",
+
+featured:"Öne Çıkan Launch'lar",
+
+emptyTitle:"Launch bulunamadı",
+emptyText:"Yeni launch'lar burada görünecek.",
+
+footer:"TON Launchpad altyapısı · DYOR",
+
+back:"Geri",
+
+newLaunch:"Launch oluştur",
+
+newLaunchDesc:
+"TON blockchain bağlantısından önce projenizi yapılandırın.",
+
+projectInfo:"Proje Bilgileri",
+projectName:"Proje Adı",
+symbol:"Token Sembolü",
+logo:"Logo URL",
+description:"Açıklama",
+
+launchType:"Launch Türü",
+
+fairDesc:"Topluluk öncelikli launch modeli.",
+presaleDesc:"Herkese açılmadan önce fon toplama.",
+
+tokenSettings:"Token Ayarları",
+totalSupply:"Toplam Arz",
+decimals:"Ondalık",
+price:"Token Fiyatı",
+
+saleSettings:"Satış Ayarları",
+softCap:"Soft Cap",
+hardCap:"Hard Cap",
+currency:"Toplanacak Para",
+
+continue:"DEVAM ET",
+
+notice:
+"Bu ilk sürüm yalnızca launch yapılandırmasını hazırlar. Cüzdan bağlantısı ve blockchain işlemleri sonraki sürümde eklenecektir."
+
+}
+
+};
+
+
+/* ================================
+   HELPERS
+================================ */
+
+const $ = id =>
+  document.getElementById(id);
+
+const t = key =>
+  T[lang]?.[key] ?? T.en[key] ?? key;
+
+
+function haptic(type="light"){
+
+  try{
+    tg?.HapticFeedback?.impactOccurred(type);
+  }catch{}
+
+}
+
+
+function toast(message){
+
+  const el = $("toast");
+
+  el.textContent = message;
+
+  el.classList.add("show");
+
+  clearTimeout(toast.timer);
+
+  toast.timer =
+    setTimeout(
+      ()=>el.classList.remove("show"),
+      2200
+    );
+
+}
+
+
+/* ================================
+   LANGUAGE
+================================ */
+
+function applyLanguage(){
+
+  document.documentElement.lang = lang;
+
+  document
+    .querySelectorAll("[data-i18n]")
+    .forEach(el=>{
+      el.textContent = t(el.dataset.i18n);
+    });
+
+  $("langBtn").textContent =
+    (lang==="tr" ? "TR" : "EN") + " ▾";
+
+}
+
+
+function setLanguage(value){
+
+  if(!T[value]) return;
+
+  lang = value;
+
+  localStorage.setItem(
+    "noventra_launch_language",
+    lang
+  );
+
+  $("langMenu")
+    .classList.remove("open");
+
+  applyLanguage();
+
+  haptic("light");
+
+}
+
+
+$("langBtn").addEventListener(
+  "click",
+  e=>{
+    e.stopPropagation();
+
+    $("langMenu")
+      .classList.toggle("open");
+  }
+);
+
+
+document
+  .querySelectorAll("[data-lang]")
+  .forEach(btn=>{
+
+    btn.addEventListener(
+      "click",
+      ()=>{
+        setLanguage(btn.dataset.lang);
+      }
+    );
+
+  });
+
+
+document.addEventListener(
+  "click",
+  e=>{
+
+    if(!e.target.closest(".lang-area")){
+      $("langMenu")
+        .classList.remove("open");
+    }
+
+  }
+);
+
+
+/* ================================
+   DEMO LAUNCH DATA
+================================ */
+
+const launches = [
+
+  {
+    id:1,
+    name:"NovaChain",
+    symbol:"NOVA",
+    letter:"N",
+    status:"live",
+    raised:"128 TON",
+    target:"500 TON",
+    progress:26,
+    type:"Fair Launch"
+  },
+
+  {
+    id:2,
+    name:"Froxon",
+    symbol:"FX",
+    letter:"F",
+    status:"upcoming",
+    raised:"0 TON",
+    target:"250 TON",
+    progress:0,
+    type:"Presale"
+  }
+
+];
+
+
+/* ================================
+   LAUNCH LIST
+================================ */
+
+function renderLaunches(filter="all"){
+
+  const list =
+    $("launchList");
+
+  const empty =
+    $("emptyState");
+
+  const data =
+    filter==="all"
+      ? launches
+      : launches.filter(
+          item=>item.status===filter
+        );
+
+  if(!data.length){
+
+    list.innerHTML="";
+
+    empty.style.display="block";
+
+    return;
+  }
+
+  empty.style.display="none";
+
+  list.innerHTML =
+    data.map(item=>{
+
+      const statusText =
+        item.status==="live"
+          ? "LIVE"
+          : item.status==="upcoming"
+          ? "UPCOMING"
+          : "ENDED";
+
+      const statusClass =
+        item.status==="live"
+          ? "status-live"
+          : item.status==="upcoming"
+          ? "status-upcoming"
+          : "status-ended";
+
+      return `
+
+      <article class="launch-card">
+
+        <div class="launch-top">
+
+          <div class="launch-logo fallback">
+            ${item.letter}
+          </div>
+
+          <div class="launch-info">
+
+            <div class="launch-name">
+              ${item.name}
+            </div>
+
+            <div class="launch-symbol">
+              $${item.symbol}
+            </div>
+
+          </div>
+
+          <div class="launch-status ${statusClass}">
+            ${statusText}
+          </div>
+
+        </div>
+
+
+        <div class="launch-progress">
+
+          <div class="progress-head">
+
+            <span>
+              ${item.raised}
+            </span>
+
+            <span>
+              ${item.target}
+            </span>
+
+          </div>
+
+          <div class="progress-bar">
+
+            <div
+              class="progress-fill"
+              style="width:${item.progress}%"
+            ></div>
+
+          </div>
+
+        </div>
+
+
+        <div class="launch-meta">
+
+          <div class="meta">
+
+            <div class="meta-label">
+              Type
+            </div>
+
+            <div class="meta-value">
+              ${item.type}
+            </div>
+
+          </div>
+
+
+          <div class="meta">
+
+            <div class="meta-label">
+              Raised
+            </div>
+
+            <div class="meta-value">
+              ${item.raised}
+            </div>
+
+          </div>
+
+
+          <div class="meta">
+
+            <div class="meta-label">
+              Progress
+            </div>
+
+            <div class="meta-value">
+              ${item.progress}%
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="launch-open"
+          data-launch="${item.id}"
+        >
+          VIEW LAUNCH
+        </button>
+
+      </article>
+
+      `;
+
+    }).join("");
+
+
+  list
+    .querySelectorAll(".launch-open")
+    .forEach(btn=>{
+
+      btn.addEventListener(
+        "click",
+        ()=>{
+
+          const item =
+            launches.find(
+              x=>x.id===Number(btn.dataset.launch)
+            );
+
+          openLaunch(item);
+
+        }
+      );
+
+    });
+
+}
+
+
+/* ================================
+   FILTERS
+================================ */
+
+document
+  .querySelectorAll(".filter")
+  .forEach(btn=>{
+
+    btn.addEventListener(
+      "click",
+      ()=>{
+
+        document
+          .querySelectorAll(".filter")
+          .forEach(x=>
+            x.classList.remove("active")
+          );
+
+        btn.classList.add("active");
+
+        renderLaunches(
+          btn.dataset.filter
+        );
+
+        haptic("light");
+
+      }
+    );
+
+  });
+
+
+/* ================================
+   CREATE SCREEN
+================================ */
+
+$("createBtn").addEventListener(
+  "click",
+  ()=>{
+
+    $("homeScreen").style.display="none";
+
+    $("createScreen").style.display="block";
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+    haptic("light");
+
+  }
+);
+
+
+$("backBtn").addEventListener(
+  "click",
+  ()=>{
+
+    $("createScreen").style.display="none";
+
+    $("homeScreen").style.display="block";
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+    haptic("light");
+
+  }
+);
+
+
+/* ================================
+   LAUNCH TYPE
+================================ */
+
+document
+  .querySelectorAll(".type-option")
+  .forEach(option=>{
+
+    option.addEventListener(
+      "click",
+      ()=>{
+
+        document
+          .querySelectorAll(".type-option")
+          .forEach(x=>
+            x.classList.remove("active")
+          );
+
+        option.classList.add("active");
+
+        selectedType =
+          option.dataset.type;
+
+        haptic("light");
+
+      }
+    );
+
+  });
+
+
+/* ================================
+   CREATE SUBMIT
+================================ */
+
+$("launchSubmit").addEventListener(
+  "click",
+  ()=>{
+
+    const name =
+      $("projectName").value.trim();
+
+    const symbol =
+      $("tokenSymbol").value.trim();
+
+    const supply =
+      $("totalSupply").value.trim();
+
+    if(!name){
+
+      toast(
+        lang==="tr"
+          ? "Proje adını girin."
+          : "Enter a project name."
+      );
+
+      $("projectName").focus();
+
+      return;
+    }
+
+    if(!symbol){
+
+      toast(
+        lang==="tr"
+          ? "Token sembolünü girin."
+          : "Enter a token symbol."
+      );
+
+      $("tokenSymbol").focus();
+
+      return;
+    }
+
+    if(!supply){
+
+      toast(
+        lang==="tr"
+          ? "Toplam arzı girin."
+          : "Enter total supply."
+      );
+
+      $("totalSupply").focus();
+
+      return;
+    }
+
+
+    toast(
+      lang==="tr"
+        ? "Launch yapılandırması hazırlandı."
+        : "Launch configuration prepared."
+    );
+
+    haptic("medium");
+
+  }
+);
+
+
+/* ================================
+   MODAL
+================================ */
+
+function openLaunch(item){
+
+  if(!item) return;
+
+  $("modalTitle").textContent =
+    item.name + " ($" + item.symbol + ")";
+
+  $("detailStatus").textContent =
+    item.status.toUpperCase();
+
+  $("detailType").textContent =
+    item.type;
+
+  $("detailRaised").textContent =
+    item.raised;
+
+  $("detailTarget").textContent =
+    item.target;
+
+  $("modal")
+    .classList.add("show");
+
+  haptic("light");
+
+}
+
+
+$("modalClose").addEventListener(
+  "click",
+  ()=>{
+    $("modal")
+      .classList.remove("show");
+  }
+);
+
+
+$("modal").addEventListener(
+  "click",
+  e=>{
+
+    if(e.target === $("modal")){
+      $("modal")
+        .classList.remove("show");
+    }
+
+  }
+);
+
+
+/* ================================
+   TELEGRAM BACK
+================================ */
+
+if(tg?.BackButton){
+
+  tg.BackButton.show();
+
+  tg.BackButton.onClick(()=>{
+
+    if($("modal").classList.contains("show")){
+
+      $("modal")
+        .classList.remove("show");
+
+      return;
+    }
+
+    if($("createScreen").style.display==="block"){
+
+      $("createScreen").style.display="none";
+
+      $("homeScreen").style.display="block";
+
+      return;
+    }
+
+    tg.close();
+
+  });
+
+}
+
+
+/* ================================
+   START
+================================ */
+
+applyLanguage();
+
+renderLaunches();
+
+</script>
+
+</body>
+</html>
