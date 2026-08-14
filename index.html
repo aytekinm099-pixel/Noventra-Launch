@@ -18,15 +18,29 @@
 
 <title>Noventra Launch</title>
 
-<!-- Telegram Mini App -->
+<!-- =====================================================
+     TELEGRAM MINI APP
+===================================================== -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  const API_BASE =
-  "https://noventra-launch-api.aytekinm099.workers.dev";
 
-<!-- TON Connect -->
+<!-- =====================================================
+     TON CONNECT
+===================================================== -->
 <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 
+<!-- =====================================================
+     NOVENTRA LAUNCH API
+===================================================== -->
+<script>
+const API_BASE =
+  "https://noventra-launch-api.aytekinm099.workers.dev";
+</script>
+
 <style>
+
+/* =========================================================
+   ROOT
+========================================================= */
 
 :root{
   --bg:#05080d;
@@ -80,6 +94,11 @@
     Consolas,
     monospace;
 }
+
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
   box-sizing:border-box;
@@ -146,7 +165,7 @@ a{
 
 /* =========================================================
    APP
-   ========================================================= */
+========================================================= */
 
 .app{
   width:100%;
@@ -162,7 +181,7 @@ a{
 
 /* =========================================================
    HEADER
-   ========================================================= */
+========================================================= */
 
 .header{
   display:flex;
@@ -215,6 +234,11 @@ a{
   flex-shrink:0;
 }
 
+
+/* =========================================================
+   NETWORK
+========================================================= */
+
 .network{
   display:flex;
   align-items:center;
@@ -249,7 +273,7 @@ a{
 
 /* =========================================================
    TON CONNECT
-   ========================================================= */
+========================================================= */
 
 #ton-connect{
   display:flex;
@@ -268,7 +292,7 @@ a{
 
 /* =========================================================
    LANGUAGE
-   ========================================================= */
+========================================================= */
 
 .lang-area{
   position:relative;
@@ -338,7 +362,7 @@ a{
 
 /* =========================================================
    WALLET STATUS
-   ========================================================= */
+========================================================= */
 
 .wallet-status-card{
   display:flex;
@@ -460,7 +484,7 @@ body.wallet-connected .create-btn{
 
 /* =========================================================
    HERO
-   ========================================================= */
+========================================================= */
 
 .hero{
   margin-bottom:20px;
@@ -513,7 +537,7 @@ body.wallet-connected .create-btn{
 
 /* =========================================================
    CREATE CARD
-   ========================================================= */
+========================================================= */
 
 .create-card{
   position:relative;
@@ -644,7 +668,7 @@ body.wallet-connected .create-btn{
 
 /* =========================================================
    SECTION
-   ========================================================= */
+========================================================= */
 
 .section-heading{
   display:flex;
@@ -670,7 +694,7 @@ body.wallet-connected .create-btn{
 
 /* =========================================================
    FILTERS
-   ========================================================= */
+========================================================= */
 
 .filters{
   display:flex;
@@ -713,8 +737,47 @@ body.wallet-connected .create-btn{
 
 
 /* =========================================================
-   EMPTY
-   ========================================================= */
+   EMPTY / LOADING
+========================================================= */
+
+.loading{
+  padding:42px 18px;
+
+  text-align:center;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(12,19,29,.95),
+      rgba(8,13,20,.95)
+    );
+
+  border:1px dashed #263b51;
+
+  border-radius:var(--radius);
+
+  color:var(--muted);
+}
+
+.loading-spinner{
+  width:30px;
+  height:30px;
+
+  margin:0 auto 12px;
+
+  border-radius:50%;
+
+  border:3px solid #172535;
+  border-top-color:var(--blue);
+
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
 
 .empty{
   display:none;
@@ -803,7 +866,7 @@ body.wallet-connected .create-btn{
 
 /* =========================================================
    LAUNCH LIST
-   ========================================================= */
+========================================================= */
 
 .launch-list{
   display:flex;
@@ -1024,11 +1087,10 @@ body.wallet-connected .create-btn{
 
 /* =========================================================
    CREATE SCREEN
-   ========================================================= */
+========================================================= */
 
 .create-screen{
   display:none;
-
   width:100%;
 }
 
@@ -1097,8 +1159,7 @@ body.wallet-connected .create-btn{
 
   min-height:44px;
 
-  padding:
-    0 12px;
+  padding:0 12px;
 
   border-radius:10px;
 
@@ -1113,9 +1174,7 @@ body.wallet-connected .create-btn{
 
 textarea.form-input{
   min-height:100px;
-
   padding:11px;
-
   resize:vertical;
 }
 
@@ -1212,6 +1271,11 @@ textarea.form-input{
   transform:scale(.99);
 }
 
+.launch-submit.loading-btn{
+  opacity:.65;
+  pointer-events:none;
+}
+
 .notice{
   margin-top:12px;
 
@@ -1235,7 +1299,7 @@ textarea.form-input{
 
 /* =========================================================
    MODAL
-   ========================================================= */
+========================================================= */
 
 .modal{
   position:fixed;
@@ -1323,6 +1387,24 @@ textarea.form-input{
   font-size:20px;
 }
 
+.detail-description{
+  margin-bottom:14px;
+
+  padding:11px;
+
+  border-radius:10px;
+
+  background:#090f17;
+
+  border:1px solid var(--border);
+
+  color:var(--muted);
+
+  font-size:9px;
+
+  line-height:1.6;
+}
+
 .detail-grid{
   display:grid;
 
@@ -1364,12 +1446,13 @@ textarea.form-input{
 
 /* =========================================================
    TOAST
-   ========================================================= */
+========================================================= */
 
 .toast{
   position:fixed;
 
   left:50%;
+
   bottom:
     calc(
       20px +
@@ -1419,7 +1502,7 @@ textarea.form-input{
 
 /* =========================================================
    FOOTER
-   ========================================================= */
+========================================================= */
 
 .footer{
   margin-top:30px;
@@ -1437,14 +1520,13 @@ textarea.form-input{
 
 .footer strong{
   color:var(--text2);
-
   font-size:10px;
 }
 
 
 /* =========================================================
    RESPONSIVE
-   ========================================================= */
+========================================================= */
 
 @media(max-width:500px){
 
@@ -1499,6 +1581,7 @@ textarea.form-input{
 
 <div class="app">
 
+
 <!-- =====================================================
      HEADER
 ===================================================== -->
@@ -1534,9 +1617,7 @@ textarea.form-input{
 
   <div class="header-right">
 
-    <!-- REAL TON CONNECT BUTTON -->
     <div id="ton-connect"></div>
-
 
     <div class="network">
 
@@ -1657,8 +1738,6 @@ textarea.form-input{
   </section>
 
 
-  <!-- CREATE -->
-
   <section class="create-card">
 
     <div class="create-top">
@@ -1700,8 +1779,6 @@ textarea.form-input{
   </section>
 
 
-  <!-- FEATURED -->
-
   <div class="section-heading">
 
     <div
@@ -1717,8 +1794,6 @@ textarea.form-input{
 
   </div>
 
-
-  <!-- FILTERS -->
 
   <div class="filters">
 
@@ -1761,15 +1836,25 @@ textarea.form-input{
   </div>
 
 
-  <!-- LAUNCH LIST -->
+  <div
+    class="loading"
+    id="loadingState"
+  >
+
+    <div class="loading-spinner"></div>
+
+    <div data-i18n="loading">
+      Loading launches...
+    </div>
+
+  </div>
+
 
   <div
     class="launch-list"
     id="launchList"
   ></div>
 
-
-  <!-- EMPTY -->
 
   <div
     class="empty"
@@ -1839,10 +1924,13 @@ textarea.form-input{
     id="backBtn"
     type="button"
   >
+
     ←
+
     <span data-i18n="back">
       Back
     </span>
+
   </button>
 
 
@@ -2067,21 +2155,10 @@ textarea.form-input{
           id="decimals"
         >
 
-          <option value="9">
-            9
-          </option>
-
-          <option value="6">
-            6
-          </option>
-
-          <option value="3">
-            3
-          </option>
-
-          <option value="0">
-            0
-          </option>
+          <option value="9">9</option>
+          <option value="6">6</option>
+          <option value="3">3</option>
+          <option value="0">0</option>
 
         </select>
 
@@ -2206,7 +2283,7 @@ textarea.form-input{
     type="button"
     data-i18n="continue"
   >
-    CONTINUE
+    CREATE LAUNCH
   </button>
 
 
@@ -2214,7 +2291,7 @@ textarea.form-input{
     class="notice"
     data-i18n="notice"
   >
-    Wallet connection is active. Blockchain deployment will be connected in the next phase.
+    Your launch will be stored in the Noventra Launch database. Blockchain deployment will be connected in the next phase.
   </div>
 
 </section>
@@ -2251,6 +2328,14 @@ textarea.form-input{
         ×
       </button>
 
+    </div>
+
+
+    <div
+      class="detail-description"
+      id="detailDescription"
+    >
+      —
     </div>
 
 
@@ -2336,14 +2421,13 @@ textarea.form-input{
 
 /* =========================================================
    NOVENTRA LAUNCH
-   PHASE 1
-   TON CONNECT + TELEGRAM MINI APP
-   ========================================================= */
+   REAL API + D1 VERSION
+========================================================= */
 
 
 /* =========================================================
    TELEGRAM
-   ========================================================= */
+========================================================= */
 
 const tg =
   window.Telegram?.WebApp || null;
@@ -2368,7 +2452,7 @@ if(tg){
   }catch(error){
 
     console.warn(
-      "Telegram WebApp initialization error:",
+      "Telegram initialization error:",
       error
     );
 
@@ -2379,59 +2463,49 @@ if(tg){
 
 /* =========================================================
    CONFIG
-   ========================================================= */
-
-const STORAGE_KEY =
-  "noventra_launch_drafts_v2";
-
-const LANGUAGE_KEY =
-  "noventra_launch_language_v3";
-
-
-/*
-  IMPORTANT:
-
-  This manifest URL must be publicly accessible
-  through HTTPS.
-*/
+========================================================= */
 
 const NOVENTRA_MANIFEST =
   "https://getnoventra.org/tonconnect-manifest.json";
 
+const LANGUAGE_KEY =
+  "noventra_launch_language_v4";
+
 
 /* =========================================================
    STATE
-   ========================================================= */
+========================================================= */
 
 let lang =
   localStorage.getItem(
     LANGUAGE_KEY
   ) || "en";
 
-
 let selectedType =
   "fair";
-
 
 let activeFilter =
   "all";
 
-
 let currentLaunch =
   null;
-
 
 let tonConnectUI =
   null;
 
-
 let connectedWallet =
   null;
+
+let allLaunches =
+  [];
+
+let loadingLaunches =
+  false;
 
 
 /* =========================================================
    TRANSLATIONS
-   ========================================================= */
+========================================================= */
 
 const T = {
 
@@ -2486,7 +2560,7 @@ const T = {
       "Create your launch",
 
     newLaunchDesc:
-      "Configure your project before connecting the TON blockchain.",
+      "Configure your project before creating the launch.",
 
     projectInfo:
       "Project Information",
@@ -2537,10 +2611,10 @@ const T = {
       "Raise Currency",
 
     continue:
-      "CONTINUE",
+      "CREATE LAUNCH",
 
     notice:
-      "Wallet connection is active. Blockchain deployment will be connected in the next phase.",
+      "Your launch will be stored in the Noventra Launch database. Blockchain deployment will be connected in the next phase.",
 
     enterName:
       "Enter a project name.",
@@ -2557,8 +2631,11 @@ const T = {
     invalidPrice:
       "Enter a valid token price.",
 
+    invalidLogo:
+      "Enter a valid logo URL.",
+
     saved:
-      "Launch configuration saved.",
+      "Launch created successfully.",
 
     noFilter:
       "No launches in this category.",
@@ -2573,7 +2650,28 @@ const T = {
       "ENDED",
 
     walletConnected:
-      "Wallet Connected"
+      "Wallet Connected",
+
+    loading:
+      "Loading launches...",
+
+    loadingLaunch:
+      "Loading launch...",
+
+    connecting:
+      "Connecting...",
+
+    apiError:
+      "Could not connect to Noventra Launch API.",
+
+    createError:
+      "Launch could not be created.",
+
+    walletRequired:
+      "Connect your TON wallet to continue.",
+
+    created:
+      "Launch successfully created."
 
   },
 
@@ -2629,7 +2727,7 @@ const T = {
       "Launch oluştur",
 
     newLaunchDesc:
-      "TON blockchain bağlantısından önce projenizi yapılandırın.",
+      "Launch oluşturmadan önce projenizi yapılandırın.",
 
     projectInfo:
       "Proje Bilgileri",
@@ -2680,10 +2778,10 @@ const T = {
       "Toplanacak Para",
 
     continue:
-      "DEVAM ET",
+      "LAUNCH OLUŞTUR",
 
     notice:
-      "Wallet bağlantısı aktif. Blockchain deployment sonraki aşamada bağlanacaktır.",
+      "Launch Noventra Launch veritabanına kaydedilecektir. Blockchain deployment sonraki aşamada bağlanacaktır.",
 
     enterName:
       "Proje adını girin.",
@@ -2700,8 +2798,11 @@ const T = {
     invalidPrice:
       "Geçerli bir token fiyatı girin.",
 
+    invalidLogo:
+      "Geçerli bir logo URL'si girin.",
+
     saved:
-      "Launch yapılandırması kaydedildi.",
+      "Launch başarıyla oluşturuldu.",
 
     noFilter:
       "Bu kategoride launch bulunmuyor.",
@@ -2716,7 +2817,28 @@ const T = {
       "SONA ERDİ",
 
     walletConnected:
-      "Wallet Bağlandı"
+      "Wallet Bağlandı",
+
+    loading:
+      "Launchlar yükleniyor...",
+
+    loadingLaunch:
+      "Launch yükleniyor...",
+
+    connecting:
+      "Bağlanıyor...",
+
+    apiError:
+      "Noventra Launch API bağlantısı kurulamadı.",
+
+    createError:
+      "Launch oluşturulamadı.",
+
+    walletRequired:
+      "Devam etmek için TON cüzdanınızı bağlayın.",
+
+    created:
+      "Launch başarıyla oluşturuldu."
 
   }
 
@@ -2725,7 +2847,7 @@ const T = {
 
 /* =========================================================
    HELPERS
-   ========================================================= */
+========================================================= */
 
 const $ =
   id =>
@@ -2767,20 +2889,16 @@ function toast(
   if(!el)
     return;
 
-
   el.textContent =
     message;
-
 
   el.classList.add(
     "show"
   );
 
-
   clearTimeout(
     toast.timer
   );
-
 
   toast.timer =
     setTimeout(
@@ -2791,15 +2909,324 @@ function toast(
         );
 
       },
-      2400
+      2600
     );
 
 }
 
 
 /* =========================================================
+   API
+========================================================= */
+
+async function apiFetch(
+  path,
+  options={}
+){
+
+  const url =
+    API_BASE +
+    path;
+
+  const response =
+    await fetch(
+      url,
+      {
+        ...options,
+
+        headers:{
+          "Content-Type":
+            "application/json",
+
+          ...(options.headers || {})
+        }
+      }
+    );
+
+
+  let data =
+    null;
+
+
+  try{
+
+    data =
+      await response.json();
+
+  }catch{
+
+    data =
+      null;
+
+  }
+
+
+  if(!response.ok){
+
+    const message =
+      data?.error ||
+      data?.message ||
+      `HTTP ${response.status}`;
+
+    throw new Error(
+      message
+    );
+
+  }
+
+
+  return data;
+
+}
+
+
+/* =========================================================
+   NORMALIZE API LAUNCH
+========================================================= */
+
+function normalizeLaunch(
+  item
+){
+
+  if(!item)
+    return null;
+
+
+  return {
+
+    id:
+      item.id ??
+      item.launch_id ??
+      "",
+
+    creatorWallet:
+      item.creator_wallet ??
+      item.creatorWallet ??
+      "",
+
+    name:
+      item.name ??
+      "",
+
+    symbol:
+      item.symbol ??
+      "",
+
+    logo:
+      item.logo ??
+      "",
+
+    description:
+      item.description ??
+      "",
+
+    type:
+      item.type ??
+      "fair",
+
+    status:
+      item.status ??
+      "upcoming",
+
+    supply:
+      item.total_supply ??
+      item.totalSupply ??
+      0,
+
+    decimals:
+      item.decimals ??
+      9,
+
+    price:
+      item.price ??
+      0,
+
+    softCap:
+      item.soft_cap ??
+      item.softCap ??
+      0,
+
+    hardCap:
+      item.hard_cap ??
+      item.hardCap ??
+      0,
+
+    currency:
+      item.currency ??
+      "TON",
+
+    raised:
+      item.raised ??
+      0,
+
+    createdAt:
+      item.created_at ??
+      item.createdAt ??
+      ""
+
+  };
+
+}
+
+
+/* =========================================================
+   EXTRACT LAUNCH ARRAY
+========================================================= */
+
+function extractLaunches(
+  data
+){
+
+  if(Array.isArray(data))
+    return data;
+
+  if(Array.isArray(data?.launches))
+    return data.launches;
+
+  if(Array.isArray(data?.data))
+    return data.data;
+
+  if(Array.isArray(data?.results))
+    return data.results;
+
+  return [];
+
+}
+
+
+/* =========================================================
+   LOAD LAUNCHES FROM D1
+========================================================= */
+
+async function loadLaunches(){
+
+  if(loadingLaunches)
+    return;
+
+
+  loadingLaunches =
+    true;
+
+
+  const loading =
+    $("loadingState");
+
+
+  if(loading)
+    loading.style.display =
+      "block";
+
+
+  try{
+
+    const data =
+      await apiFetch(
+        "/api/launches?limit=100"
+      );
+
+
+    allLaunches =
+      extractLaunches(
+        data
+      )
+      .map(
+        normalizeLaunch
+      )
+      .filter(
+        Boolean
+      );
+
+
+    renderLaunches(
+      activeFilter
+    );
+
+
+    console.log(
+      "Noventra Launches loaded:",
+      allLaunches
+    );
+
+  }catch(error){
+
+    console.error(
+      "Launch API error:",
+      error
+    );
+
+
+    allLaunches =
+      [];
+
+
+    renderLaunches(
+      activeFilter
+    );
+
+
+    toast(
+      t("apiError")
+    );
+
+  }finally{
+
+    loadingLaunches =
+      false;
+
+
+    if(loading)
+      loading.style.display =
+        "none";
+
+  }
+
+}
+
+
+/* =========================================================
+   CREATE LAUNCH API
+========================================================= */
+
+async function createLaunchOnAPI(
+  payload
+){
+
+  return await apiFetch(
+    "/api/launches",
+    {
+      method:"POST",
+
+      body:
+        JSON.stringify(
+          payload
+        )
+    }
+  );
+
+}
+
+
+/* =========================================================
+   GET SINGLE LAUNCH
+========================================================= */
+
+async function getLaunchFromAPI(
+  id
+){
+
+  return await apiFetch(
+    "/api/launches/" +
+    encodeURIComponent(
+      id
+    )
+  );
+
+}
+
+
+/* =========================================================
    TON CONNECT
-   ========================================================= */
+========================================================= */
 
 function initTonConnect(){
 
@@ -2888,7 +3315,7 @@ function initTonConnect(){
 
 /* =========================================================
    WALLET CONNECTED
-   ========================================================= */
+========================================================= */
 
 function handleWalletConnected(
   wallet
@@ -2946,7 +3373,7 @@ function handleWalletConnected(
 
 /* =========================================================
    WALLET DISCONNECTED
-   ========================================================= */
+========================================================= */
 
 function handleWalletDisconnected(){
 
@@ -2971,17 +3398,12 @@ function handleWalletDisconnected(){
   window.noventraWallet =
     null;
 
-
-  console.log(
-    "Noventra wallet disconnected."
-  );
-
 }
 
 
 /* =========================================================
    WALLET HELPERS
-   ========================================================= */
+========================================================= */
 
 function shortenTonAddress(
   address
@@ -3027,18 +3449,11 @@ function isWalletConnected(){
 
 /* =========================================================
    COPY WALLET
-   ========================================================= */
+========================================================= */
 
-const copyWalletButton =
-  $("copyWallet");
-
-
-if(copyWalletButton){
-
-  copyWalletButton.addEventListener(
-
+$("copyWallet")
+  .addEventListener(
     "click",
-
     async ()=>{
 
       const address =
@@ -3048,9 +3463,7 @@ if(copyWalletButton){
       if(!address){
 
         toast(
-          lang === "tr"
-            ? "Wallet bağlı değil."
-            : "Wallet not connected."
+          t("walletRequired")
         );
 
         return;
@@ -3067,7 +3480,11 @@ if(copyWalletButton){
           );
 
 
-        copyWalletButton.textContent =
+        const btn =
+          $("copyWallet");
+
+
+        btn.textContent =
           "COPIED";
 
 
@@ -3078,10 +3495,8 @@ if(copyWalletButton){
 
         setTimeout(
           ()=>{
-
-            copyWalletButton.textContent =
+            btn.textContent =
               "COPY";
-
           },
           1500
         );
@@ -3097,64 +3512,12 @@ if(copyWalletButton){
       }
 
     }
-
   );
-
-}
-
-
-/* =========================================================
-   STORAGE
-   ========================================================= */
-
-function getLaunches(){
-
-  try{
-
-    const raw =
-      localStorage.getItem(
-        STORAGE_KEY
-      );
-
-
-    if(!raw)
-      return [];
-
-
-    const parsed =
-      JSON.parse(
-        raw
-      );
-
-
-    return Array.isArray(parsed)
-      ? parsed
-      : [];
-
-  }catch{
-
-    return [];
-
-  }
-
-}
-
-
-function saveLaunches(
-  items
-){
-
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(items)
-  );
-
-}
 
 
 /* =========================================================
    LANGUAGE
-   ========================================================= */
+========================================================= */
 
 function applyLanguage(){
 
@@ -3183,7 +3546,8 @@ function applyLanguage(){
       lang === "tr"
         ? "TR"
         : "EN"
-    ) + " ▾";
+    ) +
+    " ▾";
 
 
   if(tonConnectUI){
@@ -3270,11 +3634,9 @@ document
       btn.addEventListener(
         "click",
         ()=>{
-
           setLanguage(
             btn.dataset.lang
           );
-
         }
       );
 
@@ -3306,7 +3668,7 @@ document.addEventListener(
 
 /* =========================================================
    SCREEN NAVIGATION
-   ========================================================= */
+========================================================= */
 
 function showHome(){
 
@@ -3395,7 +3757,7 @@ $("backBtn")
 
 /* =========================================================
    TYPE SELECTOR
-   ========================================================= */
+========================================================= */
 
 document
   .querySelectorAll(
@@ -3447,7 +3809,7 @@ document
 
 /* =========================================================
    VALIDATION
-   ========================================================= */
+========================================================= */
 
 function validateForm(){
 
@@ -3462,6 +3824,12 @@ function validateForm(){
       .value
       .trim()
       .toUpperCase();
+
+
+  const logo =
+    $("logoUrl")
+      .value
+      .trim();
 
 
   const supply =
@@ -3498,10 +3866,8 @@ function validateForm(){
       t("enterName")
     );
 
-
     $("projectName")
       .focus();
-
 
     return null;
 
@@ -3514,10 +3880,8 @@ function validateForm(){
       t("enterSymbol")
     );
 
-
     $("tokenSymbol")
       .focus();
-
 
     return null;
 
@@ -3535,10 +3899,8 @@ function validateForm(){
       t("enterSupply")
     );
 
-
     $("totalSupply")
       .focus();
-
 
     return null;
 
@@ -3556,10 +3918,8 @@ function validateForm(){
       t("invalidPrice")
     );
 
-
     $("tokenPrice")
       .focus();
-
 
     return null;
 
@@ -3575,10 +3935,27 @@ function validateForm(){
       t("invalidCap")
     );
 
-
     $("hardCap")
       .focus();
 
+    return null;
+
+  }
+
+
+  if(
+    logo &&
+    !/^https?:\/\/.+/i.test(
+      logo
+    )
+  ){
+
+    toast(
+      t("invalidLogo")
+    );
+
+    $("logoUrl")
+      .focus();
 
     return null;
 
@@ -3589,6 +3966,7 @@ function validateForm(){
 
     name,
     symbol,
+    logo,
     supply,
     price,
     softCap,
@@ -3601,27 +3979,19 @@ function validateForm(){
 
 /* =========================================================
    CREATE LAUNCH
-   ========================================================= */
+========================================================= */
 
 $("launchSubmit")
   .addEventListener(
     "click",
-    ()=>{
-
-      /*
-        PHASE 1:
-        Wallet MUST be connected before
-        creating a launch configuration.
-      */
+    async ()=>{
 
       if(
         !isWalletConnected()
       ){
 
         toast(
-          lang === "tr"
-            ? "Devam etmek için TON cüzdanınızı bağlayın."
-            : "Connect your TON wallet to continue."
+          t("walletRequired")
         );
 
 
@@ -3657,18 +4027,6 @@ $("launchSubmit")
         return;
 
 
-      const logo =
-        $("logoUrl")
-          .value
-          .trim();
-
-
-      const description =
-        $("projectDescription")
-          .value
-          .trim();
-
-
       const decimals =
         Number(
           $("decimals")
@@ -3681,19 +4039,22 @@ $("launchSubmit")
           .value;
 
 
+      const creatorWallet =
+        getConnectedWalletAddress();
+
+
       /*
-        Wallet identity is now attached
-        to the launch configuration.
+        IMPORTANT:
+
+        These are the exact API field
+        names expected by the Noventra
+        Launch Worker.
       */
 
-      const launch = {
-
-        id:
-          "draft_" +
-          Date.now(),
+      const payload = {
 
         creatorWallet:
-          getConnectedWalletAddress(),
+          creatorWallet,
 
         name:
           values.name,
@@ -3702,27 +4063,17 @@ $("launchSubmit")
           values.symbol,
 
         logo:
-          logo,
+          values.logo,
 
         description:
-          description,
+          $("projectDescription")
+            .value
+            .trim(),
 
         type:
           selectedType,
 
-        status:
-          "upcoming",
-
-        raised:
-          0,
-
-        target:
-          values.hardCap,
-
-        progress:
-          0,
-
-        supply:
+        totalSupply:
           values.supply,
 
         decimals:
@@ -3738,78 +4089,125 @@ $("launchSubmit")
           values.hardCap,
 
         currency:
-          currency,
-
-        createdAt:
-          new Date().toISOString(),
-
-        local:
-          true,
-
-        phase:
-          1
+          currency
 
       };
 
 
-      const launches =
-        getLaunches();
+      const submitButton =
+        $("launchSubmit");
 
 
-      launches.unshift(
-        launch
-      );
+      submitButton
+        .classList
+        .add(
+          "loading-btn"
+        );
 
 
-      saveLaunches(
-        launches
-      );
+      submitButton.textContent =
+        t("connecting");
 
 
-      toast(
-        t("saved")
-      );
+      try{
 
-
-      haptic(
-        "medium"
-      );
-
-
-      setTimeout(
-        ()=>{
-
-          showHome();
-
-
-          activeFilter =
-            "all";
-
-
-          document
-            .querySelectorAll(
-              ".filter"
-            )
-            .forEach(
-              btn => {
-
-                btn.classList.toggle(
-                  "active",
-                  btn.dataset.filter ===
-                    "all"
-                );
-
-              }
-            );
-
-
-          renderLaunches(
-            "all"
+        const result =
+          await createLaunchOnAPI(
+            payload
           );
 
-        },
-        700
-      );
+
+        console.log(
+          "Create Launch response:",
+          result
+        );
+
+
+        /*
+          Reload the real D1 data.
+        */
+
+        await loadLaunches();
+
+
+        /*
+          Return to homepage.
+        */
+
+        showHome();
+
+
+        activeFilter =
+          "all";
+
+
+        document
+          .querySelectorAll(
+            ".filter"
+          )
+          .forEach(
+            btn => {
+
+              btn.classList.toggle(
+                "active",
+                btn.dataset.filter ===
+                  "all"
+              );
+
+            }
+          );
+
+
+        renderLaunches(
+          "all"
+        );
+
+
+        toast(
+          t("created")
+        );
+
+
+        haptic(
+          "success"
+        );
+
+
+      }catch(error){
+
+        console.error(
+          "Create launch failed:",
+          error
+        );
+
+
+        toast(
+          t("createError") +
+          " " +
+          (
+            error?.message ||
+            ""
+          )
+        );
+
+
+        haptic(
+          "heavy"
+        );
+
+      }finally{
+
+        submitButton
+          .classList
+          .remove(
+            "loading-btn"
+          );
+
+
+        submitButton.textContent =
+          t("continue");
+
+      }
 
     }
   );
@@ -3817,7 +4215,7 @@ $("launchSubmit")
 
 /* =========================================================
    STATUS
-   ========================================================= */
+========================================================= */
 
 function getStatusText(
   status
@@ -3869,35 +4267,11 @@ function getStatusClass(
 
 /* =========================================================
    LOGO
-   ========================================================= */
+========================================================= */
 
 function renderLogo(
   item
 ){
-
-  if(item.logo){
-
-    return `
-
-      <img
-        class="launch-logo"
-        src="${escapeHtml(item.logo)}"
-        alt=""
-        onerror="this.outerHTML='<div class=&quot;launch-logo fallback&quot;>${escapeHtml(
-          (
-            item.symbol ||
-            item.name ||
-            "N"
-          )
-          .charAt(0)
-          .toUpperCase()
-        )}</div>'"
-      >
-
-    `;
-
-  }
-
 
   const letter =
     (
@@ -3907,6 +4281,22 @@ function renderLogo(
     )
       .charAt(0)
       .toUpperCase();
+
+
+  if(item.logo){
+
+    return `
+
+      <img
+        class="launch-logo"
+        src="${escapeHtml(item.logo)}"
+        alt=""
+        data-fallback-letter="${escapeHtml(letter)}"
+      >
+
+    `;
+
+  }
 
 
   return `
@@ -3922,7 +4312,7 @@ function renderLogo(
 
 /* =========================================================
    ESCAPE
-   ========================================================= */
+========================================================= */
 
 function escapeHtml(
   value
@@ -3957,8 +4347,61 @@ function escapeHtml(
 
 
 /* =========================================================
-   FORMAT
-   ========================================================= */
+   IMAGE FALLBACK
+========================================================= */
+
+function setupLogoFallbacks(){
+
+  document
+    .querySelectorAll(
+      ".launch-logo[data-fallback-letter]"
+    )
+    .forEach(
+      img => {
+
+        img.addEventListener(
+          "error",
+          ()=>{
+
+            const letter =
+              img.dataset
+                .fallbackLetter ||
+              "N";
+
+
+            const div =
+              document.createElement(
+                "div"
+              );
+
+
+            div.className =
+              "launch-logo fallback";
+
+
+            div.textContent =
+              letter;
+
+
+            img.replaceWith(
+              div
+            );
+
+          },
+          {
+            once:true
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   FORMAT NUMBER
+========================================================= */
 
 function formatNumber(
   value
@@ -4002,7 +4445,7 @@ function formatNumber(
 
 /* =========================================================
    RENDER LAUNCHES
-   ========================================================= */
+========================================================= */
 
 function renderLaunches(
   filter="all"
@@ -4020,18 +4463,46 @@ function renderLaunches(
     $("emptyState");
 
 
-  const launches =
-    getLaunches();
+  const loading =
+    $("loadingState");
 
 
-  const data =
+  if(loadingLaunches){
+
+    if(loading)
+      loading.style.display =
+        "block";
+
+    return;
+
+  }
+
+
+  if(loading)
+    loading.style.display =
+      "none";
+
+
+  let data;
+
+
+  if(
     filter === "all"
-      ? launches
-      : launches.filter(
-          item =>
-            item.status ===
-            filter
-        );
+  ){
+
+    data =
+      allLaunches;
+
+  }else{
+
+    data =
+      allLaunches.filter(
+        item =>
+          item.status ===
+          filter
+      );
+
+  }
 
 
   if(!data.length){
@@ -4047,7 +4518,7 @@ function renderLaunches(
     empty.querySelector(
       ".empty-title"
     ).textContent =
-      launches.length
+      allLaunches.length
         ? t("noFilter")
         : t("emptyTitle");
 
@@ -4055,7 +4526,7 @@ function renderLaunches(
     empty.querySelector(
       ".empty-text"
     ).textContent =
-      launches.length
+      allLaunches.length
         ? t("noFilter")
         : t("emptyText");
 
@@ -4076,7 +4547,7 @@ function renderLaunches(
 
           const target =
             Number(
-              item.target ||
+              item.hardCap ||
               0
             );
 
@@ -4292,6 +4763,9 @@ function renderLaunches(
       .join("");
 
 
+  setupLogoFallbacks();
+
+
   list
     .querySelectorAll(
       ".launch-open"
@@ -4301,26 +4775,12 @@ function renderLaunches(
 
         btn.addEventListener(
           "click",
-          ()=>{
+          async ()=>{
 
-            const launch =
-              getLaunches()
-                .find(
-                  item =>
-                    String(
-                      item.id
-                    ) ===
-                    String(
-                      btn.dataset
-                        .launchId
-                    )
-                );
-
-
-            if(launch)
-              openLaunch(
-                launch
-              );
+            await openLaunchById(
+              btn.dataset
+                .launchId
+            );
 
           }
         );
@@ -4333,7 +4793,7 @@ function renderLaunches(
 
 /* =========================================================
    FILTERS
-   ========================================================= */
+========================================================= */
 
 document
   .querySelectorAll(
@@ -4381,10 +4841,147 @@ document
 
 
 /* =========================================================
-   MODAL
-   ========================================================= */
+   OPEN LAUNCH FROM D1
+========================================================= */
 
-function openLaunch(
+async function openLaunchById(
+  id
+){
+
+  if(!id)
+    return;
+
+
+  $("modalTitle")
+    .textContent =
+      t("loadingLaunch");
+
+
+  $("detailDescription")
+    .textContent =
+      "—";
+
+
+  $("detailStatus")
+    .textContent =
+      "—";
+
+
+  $("detailType")
+    .textContent =
+      "—";
+
+
+  $("detailRaised")
+    .textContent =
+      "—";
+
+
+  $("detailTarget")
+    .textContent =
+      "—";
+
+
+  $("modal")
+    .classList
+    .add(
+      "show"
+    );
+
+
+  haptic(
+    "light"
+  );
+
+
+  try{
+
+    const result =
+      await getLaunchFromAPI(
+        id
+      );
+
+
+    const raw =
+      result?.launch ??
+      result?.data ??
+      result;
+
+
+    const launch =
+      normalizeLaunch(
+        raw
+      );
+
+
+    if(!launch)
+      throw new Error(
+        "Launch not found"
+      );
+
+
+    currentLaunch =
+      launch;
+
+
+    openLaunchModal(
+      launch
+    );
+
+  }catch(error){
+
+    console.error(
+      "Launch detail error:",
+      error
+    );
+
+
+    /*
+      If detail endpoint fails,
+      use already loaded D1 object.
+    */
+
+    const fallback =
+      allLaunches.find(
+        item =>
+          String(
+            item.id
+          ) ===
+          String(
+            id
+          )
+      );
+
+
+    if(fallback){
+
+      currentLaunch =
+        fallback;
+
+      openLaunchModal(
+        fallback
+      );
+
+    }else{
+
+      closeModal();
+
+      toast(
+        t("apiError")
+      );
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   MODAL CONTENT
+========================================================= */
+
+function openLaunchModal(
   item
 ){
 
@@ -4398,6 +4995,12 @@ function openLaunch(
       " ($" +
       item.symbol +
       ")";
+
+
+  $("detailDescription")
+    .textContent =
+      item.description ||
+      "—";
 
 
   $("detailStatus")
@@ -4429,25 +5032,13 @@ function openLaunch(
   $("detailTarget")
     .textContent =
       formatNumber(
-        item.target
+        item.hardCap
       ) +
       " " +
       (
         item.currency ||
         "TON"
       );
-
-
-  $("modal")
-    .classList
-    .add(
-      "show"
-    );
-
-
-  haptic(
-    "light"
-  );
 
 }
 
@@ -4511,7 +5102,7 @@ document.addEventListener(
 
 /* =========================================================
    TELEGRAM BACK BUTTON
-   ========================================================= */
+========================================================= */
 
 if(
   tg?.BackButton
@@ -4566,7 +5157,7 @@ if(
 
 /* =========================================================
    FORM UX
-   ========================================================= */
+========================================================= */
 
 $("tokenSymbol")
   .addEventListener(
@@ -4605,11 +5196,77 @@ $("totalSupply")
   );
 
 
+$("tokenPrice")
+  .addEventListener(
+    "input",
+    e => {
+
+      if(
+        Number(
+          e.target.value
+        ) < 0
+      ){
+
+        e.target.value =
+          "";
+
+      }
+
+    }
+  );
+
+
+$("softCap")
+  .addEventListener(
+    "input",
+    e => {
+
+      if(
+        Number(
+          e.target.value
+        ) < 0
+      ){
+
+        e.target.value =
+          "";
+
+      }
+
+    }
+  );
+
+
+$("hardCap")
+  .addEventListener(
+    "input",
+    e => {
+
+      if(
+        Number(
+          e.target.value
+        ) < 0
+      ){
+
+        e.target.value =
+          "";
+
+      }
+
+    }
+  );
+
+
 /* =========================================================
    INITIALIZE
-   ========================================================= */
+========================================================= */
 
 applyLanguage();
+
+
+/*
+  First render, then fetch the
+  real database.
+*/
 
 renderLaunches(
   "all"
@@ -4617,9 +5274,15 @@ renderLaunches(
 
 
 /*
-  Small delay makes sure the CDN
-  script has initialized before
-  TON Connect is created.
+  Load D1 launches immediately.
+*/
+
+loadLaunches();
+
+
+/*
+  Initialize TON Connect after
+  CDN availability.
 */
 
 if(
@@ -4641,6 +5304,24 @@ if(
   );
 
 }
+
+
+/* =========================================================
+   OPTIONAL AUTO REFRESH
+   Keeps Featured Launches current.
+========================================================= */
+
+setInterval(
+  ()=>{
+    if(
+      document.visibilityState ===
+      "visible"
+    ){
+      loadLaunches();
+    }
+  },
+  60000
+);
 
 </script>
 
