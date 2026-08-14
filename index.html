@@ -8,7 +8,7 @@
   content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
 >
 
-<meta name="theme-color" content="#06090f">
+<meta name="theme-color" content="#05080d">
 <meta name="color-scheme" content="dark">
 
 <meta
@@ -18,7 +18,11 @@
 
 <title>Noventra Launch</title>
 
+<!-- Telegram Mini App -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<!-- TON Connect -->
+<script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 
 <style>
 
@@ -55,8 +59,7 @@
   --radius:18px;
   --radius-sm:12px;
 
-  --shadow:
-    0 18px 50px rgba(0,0,0,.38);
+  --shadow:0 18px 50px rgba(0,0,0,.38);
 
   --font:
     -apple-system,
@@ -76,9 +79,6 @@
     monospace;
 }
 
-
-/* RESET */
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -89,6 +89,7 @@
 html{
   min-height:100%;
   background:var(--bg);
+  scroll-behavior:smooth;
 }
 
 body{
@@ -96,7 +97,7 @@ body{
   background:
     radial-gradient(
       circle at 50% -15%,
-      rgba(61,169,255,.08),
+      rgba(61,169,255,.09),
       transparent 35%
     ),
     var(--bg);
@@ -136,8 +137,14 @@ a{
   text-decoration:none;
 }
 
+.hidden{
+  display:none!important;
+}
 
-/* APP */
+
+/* =========================================================
+   APP
+   ========================================================= */
 
 .app{
   width:100%;
@@ -151,7 +158,9 @@ a{
 }
 
 
-/* HEADER */
+/* =========================================================
+   HEADER
+   ========================================================= */
 
 .header{
   display:flex;
@@ -159,7 +168,9 @@ a{
   justify-content:space-between;
 
   min-height:48px;
-  margin-bottom:26px;
+  margin-bottom:14px;
+
+  gap:10px;
 }
 
 .brand{
@@ -199,6 +210,7 @@ a{
   display:flex;
   align-items:center;
   gap:6px;
+  flex-shrink:0;
 }
 
 .network{
@@ -224,9 +236,37 @@ a{
   width:6px;
   height:6px;
   border-radius:50%;
+
   background:var(--green);
-  box-shadow:0 0 8px rgba(34,211,154,.8);
+
+  box-shadow:
+    0 0 8px
+    rgba(34,211,154,.8);
 }
+
+
+/* =========================================================
+   TON CONNECT
+   ========================================================= */
+
+#ton-connect{
+  display:flex;
+  align-items:center;
+}
+
+#ton-connect button{
+  min-height:36px!important;
+  border-radius:11px!important;
+}
+
+#ton-connect [data-tc-dropdown]{
+  z-index:500;
+}
+
+
+/* =========================================================
+   LANGUAGE
+   ========================================================= */
 
 .lang-area{
   position:relative;
@@ -253,7 +293,7 @@ a{
   right:0;
   top:39px;
 
-  z-index:200;
+  z-index:300;
 
   width:135px;
 
@@ -294,7 +334,131 @@ a{
 }
 
 
-/* HERO */
+/* =========================================================
+   WALLET STATUS
+   ========================================================= */
+
+.wallet-status-card{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:12px;
+
+  margin-bottom:18px;
+
+  padding:12px 13px;
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(14,28,42,.98),
+      rgba(8,15,23,.98)
+    );
+
+  border:1px solid rgba(34,211,154,.18);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.20);
+
+  animation:walletIn .2s ease;
+}
+
+@keyframes walletIn{
+  from{
+    opacity:0;
+    transform:translateY(-5px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.wallet-status-left{
+  display:flex;
+  align-items:center;
+
+  gap:10px;
+
+  min-width:0;
+}
+
+.wallet-status-dot{
+  width:9px;
+  height:9px;
+
+  flex-shrink:0;
+
+  border-radius:50%;
+
+  background:var(--green);
+
+  box-shadow:
+    0 0 12px
+    rgba(34,211,154,.85);
+}
+
+.wallet-status-title{
+  font-size:10px;
+  font-weight:950;
+  color:var(--green);
+}
+
+.wallet-status-address{
+  margin-top:2px;
+
+  color:var(--muted);
+
+  font-family:var(--mono);
+
+  font-size:9px;
+
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+
+  max-width:230px;
+}
+
+.wallet-copy{
+  flex-shrink:0;
+
+  padding:7px 9px;
+
+  border-radius:8px;
+
+  background:#101c28;
+
+  border:1px solid var(--border2);
+
+  color:var(--text2);
+
+  font-size:8px;
+  font-weight:950;
+}
+
+.wallet-copy:active{
+  transform:scale(.96);
+}
+
+body.wallet-connected .create-btn{
+  background:
+    linear-gradient(
+      135deg,
+      var(--green),
+      #15ae7d
+    );
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
 
 .hero{
   margin-bottom:20px;
@@ -345,7 +509,9 @@ a{
 }
 
 
-/* CREATE CARD */
+/* =========================================================
+   CREATE CARD
+   ========================================================= */
 
 .create-card{
   position:relative;
@@ -396,6 +562,7 @@ a{
 
   display:flex;
   align-items:center;
+
   gap:13px;
 }
 
@@ -473,7 +640,9 @@ a{
 }
 
 
-/* SECTION */
+/* =========================================================
+   SECTION
+   ========================================================= */
 
 .section-heading{
   display:flex;
@@ -497,7 +666,9 @@ a{
 }
 
 
-/* FILTERS */
+/* =========================================================
+   FILTERS
+   ========================================================= */
 
 .filters{
   display:flex;
@@ -539,7 +710,9 @@ a{
 }
 
 
-/* EMPTY STATE */
+/* =========================================================
+   EMPTY
+   ========================================================= */
 
 .empty{
   display:none;
@@ -626,7 +799,9 @@ a{
 }
 
 
-/* LAUNCH LIST */
+/* =========================================================
+   LAUNCH LIST
+   ========================================================= */
 
 .launch-list{
   display:flex;
@@ -649,6 +824,7 @@ a{
 .launch-top{
   display:flex;
   align-items:center;
+
   gap:11px;
 }
 
@@ -719,6 +895,8 @@ a{
   font-weight:950;
 
   letter-spacing:.3px;
+
+  flex-shrink:0;
 }
 
 .status-live{
@@ -812,75 +990,92 @@ a{
 .meta-value{
   margin-top:2px;
 
-  font-size:10px;
+  color:var(--text2);
+
+  font-size:9px;
   font-weight:850;
 }
 
 .launch-open{
   width:100%;
+
   height:40px;
 
-  margin-top:10px;
+  margin-top:11px;
 
   border-radius:10px;
 
-  color:var(--text2);
+  background:#111e2b;
 
-  background:var(--surface2);
+  border:1px solid var(--border2);
 
-  border:1px solid var(--border);
+  color:var(--blue3);
 
-  font-size:10px;
-  font-weight:900;
+  font-size:9px;
+  font-weight:950;
+}
+
+.launch-open:active{
+  transform:scale(.99);
 }
 
 
-/* CREATE SCREEN */
+/* =========================================================
+   CREATE SCREEN
+   ========================================================= */
 
 .create-screen{
   display:none;
+
+  width:100%;
 }
 
 .back-btn{
   display:flex;
   align-items:center;
+
   gap:7px;
 
   margin-bottom:20px;
 
-  background:none;
-
   color:var(--muted);
 
+  background:transparent;
+
   font-size:11px;
-  font-weight:850;
+  font-weight:800;
 }
 
 .form-card{
-  padding:15px;
+  padding:16px;
 
-  margin-bottom:10px;
-
-  background:var(--surface);
-
-  border:1px solid var(--border);
+  margin-bottom:11px;
 
   border-radius:var(--radius);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(12,19,29,.98),
+      rgba(8,14,22,.98)
+    );
+
+  border:1px solid var(--border);
 }
 
 .form-title{
-  margin-bottom:13px;
+  margin-bottom:14px;
 
   font-size:12px;
   font-weight:950;
 }
 
 .form-group{
-  margin-bottom:12px;
+  margin-top:11px;
 }
 
-.form-group:last-child{
-  margin-bottom:0;
+.form-group:first-of-type{
+  margin-top:0;
 }
 
 .form-label{
@@ -890,51 +1085,45 @@ a{
 
   color:var(--muted);
 
-  font-size:8px;
-  font-weight:850;
-
-  text-transform:uppercase;
-  letter-spacing:.6px;
+  font-size:9px;
+  font-weight:800;
 }
 
 .form-input,
 .form-select{
   width:100%;
-  height:45px;
 
-  padding:0 12px;
+  min-height:44px;
+
+  padding:
+    0 12px;
 
   border-radius:10px;
 
-  background:#080e15;
+  background:#090f17;
 
-  border:1px solid #233144;
+  border:1px solid var(--border2);
+
+  color:var(--text);
 
   font-size:11px;
-
-  transition:
-    border-color .15s ease,
-    box-shadow .15s ease;
 }
 
 textarea.form-input{
-  height:84px;
+  min-height:100px;
 
-  padding-top:11px;
+  padding:11px;
 
-  resize:none;
-}
-
-.form-input::placeholder{
-  color:#4e5e71;
+  resize:vertical;
 }
 
 .form-input:focus,
 .form-select:focus{
-  border-color:#3189c9;
+  border-color:#2f79ae;
 
   box-shadow:
-    0 0 0 3px rgba(61,169,255,.08);
+    0 0 0 2px
+    rgba(61,169,255,.08);
 }
 
 .form-grid{
@@ -943,7 +1132,7 @@ textarea.form-input{
   grid-template-columns:
     repeat(2,1fr);
 
-  gap:8px;
+  gap:10px;
 }
 
 .type-grid{
@@ -952,28 +1141,29 @@ textarea.form-input{
   grid-template-columns:
     repeat(2,1fr);
 
-  gap:8px;
+  gap:9px;
 }
 
 .type-option{
-  padding:13px 11px;
+  padding:13px;
 
-  border-radius:11px;
+  border-radius:12px;
 
   background:#090f17;
 
   border:1px solid var(--border);
 
-  transition:.15s ease;
+  cursor:pointer;
 }
 
 .type-option.active{
-  background:#0c2031;
+  background:#102337;
 
-  border-color:#2b82bd;
+  border-color:#2b648d;
 
   box-shadow:
-    inset 0 0 0 1px rgba(61,169,255,.08);
+    0 0 0 1px
+    rgba(61,169,255,.08);
 }
 
 .type-name{
@@ -982,21 +1172,22 @@ textarea.form-input{
 }
 
 .type-desc{
-  margin-top:3px;
+  margin-top:4px;
 
   color:var(--muted);
 
   font-size:8px;
-  line-height:1.45;
+  line-height:1.5;
 }
 
 .launch-submit{
   width:100%;
-  height:49px;
+
+  height:48px;
+
+  margin-top:4px;
 
   border-radius:12px;
-
-  margin-top:5px;
 
   background:
     linear-gradient(
@@ -1011,42 +1202,59 @@ textarea.form-input{
   font-weight:950;
 
   box-shadow:
-    0 8px 25px rgba(22,126,224,.16);
+    0 10px 28px
+    rgba(22,126,224,.18);
+}
+
+.launch-submit:active{
+  transform:scale(.99);
 }
 
 .notice{
-  padding:11px 12px;
+  margin-top:12px;
 
-  margin-top:10px;
+  padding:12px;
 
   border-radius:11px;
 
-  color:#d7b85d;
+  background:#09111a;
 
-  background:var(--yellow-dim);
+  border:1px dashed var(--border2);
 
-  border:1px solid rgba(244,196,82,.15);
+  color:var(--muted);
 
   font-size:8px;
+
   line-height:1.6;
+
+  text-align:center;
 }
 
 
-/* MODAL */
+/* =========================================================
+   MODAL
+   ========================================================= */
 
 .modal{
   position:fixed;
+
   inset:0;
 
-  z-index:500;
+  z-index:600;
 
   display:none;
-  align-items:flex-end;
 
-  background:rgba(0,0,0,.72);
+  align-items:flex-end;
+  justify-content:center;
+
+  padding:
+    16px
+    14px
+    calc(16px + env(safe-area-inset-bottom));
+
+  background:rgba(0,0,0,.62);
 
   backdrop-filter:blur(5px);
-  -webkit-backdrop-filter:blur(5px);
 }
 
 .modal.show{
@@ -1055,31 +1263,36 @@ textarea.form-input{
 
 .modal-box{
   width:100%;
-  max-width:700px;
+  max-width:600px;
 
-  max-height:86vh;
+  padding:17px;
 
-  overflow:auto;
+  border-radius:20px;
 
-  margin:0 auto;
+  background:
+    linear-gradient(
+      145deg,
+      #111c28,
+      #090f17
+    );
 
-  padding:
-    18px
-    14px
-    calc(28px + env(safe-area-inset-bottom));
+  border:1px solid var(--border2);
 
-  background:var(--bg2);
+  box-shadow:var(--shadow);
 
-  border:
-    1px solid var(--border2);
+  animation:modalIn .2s ease;
+}
 
-  border-bottom:0;
+@keyframes modalIn{
+  from{
+    opacity:0;
+    transform:translateY(15px);
+  }
 
-  border-radius:
-    22px
-    22px
-    0
-    0;
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 .modal-head{
@@ -1087,11 +1300,11 @@ textarea.form-input{
   align-items:center;
   justify-content:space-between;
 
-  margin-bottom:16px;
+  margin-bottom:15px;
 }
 
 .modal-title{
-  font-size:16px;
+  font-size:15px;
   font-weight:950;
 }
 
@@ -1099,13 +1312,13 @@ textarea.form-input{
   width:32px;
   height:32px;
 
-  border-radius:50%;
+  border-radius:9px;
 
-  background:var(--surface2);
+  background:#182432;
 
   color:var(--muted);
 
-  font-size:18px;
+  font-size:20px;
 }
 
 .detail-grid{
@@ -1118,87 +1331,75 @@ textarea.form-input{
 }
 
 .detail-box{
-  padding:12px;
+  padding:11px;
 
-  border-radius:11px;
+  border-radius:10px;
 
-  background:var(--surface);
+  background:#090f17;
 
   border:1px solid var(--border);
 }
 
 .detail-label{
-  color:var(--muted);
+  color:var(--muted2);
 
-  font-size:7px;
-  font-weight:800;
+  font-size:8px;
 
   text-transform:uppercase;
+
+  letter-spacing:.5px;
 }
 
 .detail-value{
-  margin-top:4px;
+  margin-top:3px;
 
-  font-size:12px;
+  color:var(--text2);
+
+  font-size:10px;
   font-weight:900;
 }
 
 
-/* FOOTER */
-
-.footer{
-  margin-top:28px;
-
-  padding:0 10px;
-
-  text-align:center;
-
-  color:var(--muted2);
-
-  font-size:9px;
-  line-height:1.7;
-}
-
-.footer strong{
-  color:var(--muted);
-}
-
-
-/* TOAST */
+/* =========================================================
+   TOAST
+   ========================================================= */
 
 .toast{
   position:fixed;
 
   left:50%;
   bottom:
-    calc(24px + env(safe-area-inset-bottom));
+    calc(
+      20px +
+      env(safe-area-inset-bottom)
+    );
 
-  z-index:900;
+  z-index:1000;
 
-  transform:
-    translateX(-50%)
-    translateY(15px);
+  max-width:calc(100% - 30px);
 
-  max-width:
-    calc(100vw - 35px);
+  padding:10px 14px;
 
-  padding:10px 15px;
+  border-radius:10px;
 
-  border-radius:11px;
-
-  background:var(--surface3);
+  background:#172331;
 
   border:1px solid var(--border2);
 
   color:var(--text);
 
-  font-size:10px;
-  font-weight:850;
+  font-size:9px;
+  font-weight:800;
 
-  white-space:nowrap;
+  box-shadow:var(--shadow);
 
   opacity:0;
+
   pointer-events:none;
+
+  transform:
+    translateX(-50%)
+    translateY(10px);
 
   transition:
     opacity .2s ease,
@@ -1214,15 +1415,42 @@ textarea.form-input{
 }
 
 
-/* LOADING */
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
-.loading{
-  opacity:.55;
-  pointer-events:none;
+.footer{
+  margin-top:30px;
+
+  padding:15px 4px;
+
+  color:var(--muted2);
+
+  text-align:center;
+
+  font-size:8px;
+
+  line-height:1.7;
+}
+
+.footer strong{
+  color:var(--text2);
+
+  font-size:10px;
 }
 
 
-/* RESPONSIVE */
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:500px){
+
+  .network{
+    display:none;
+  }
+
+}
 
 @media(max-width:390px){
 
@@ -1235,16 +1463,28 @@ textarea.form-input{
     font-size:27px;
   }
 
-  .network{
-    display:none;
-  }
-
   .launch-meta{
     grid-template-columns:1fr 1fr;
   }
 
   .launch-meta .meta:last-child{
     grid-column:1/-1;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .type-grid{
+    grid-template-columns:1fr;
+  }
+
+  .wallet-status-address{
+    max-width:170px;
+  }
+
+  #ton-connect{
+    max-width:130px;
   }
 
 }
@@ -1257,7 +1497,9 @@ textarea.form-input{
 
 <div class="app">
 
-<!-- HEADER -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header class="header">
 
@@ -1290,6 +1532,10 @@ textarea.form-input{
 
   <div class="header-right">
 
+    <!-- REAL TON CONNECT BUTTON -->
+    <div id="ton-connect"></div>
+
+
     <div class="network">
 
       <span class="network-dot"></span>
@@ -1304,6 +1550,7 @@ textarea.form-input{
       <button
         class="lang-btn"
         id="langBtn"
+        type="button"
       >
         EN ▾
       </button>
@@ -1314,11 +1561,17 @@ textarea.form-input{
         id="langMenu"
       >
 
-        <button data-lang="en">
+        <button
+          type="button"
+          data-lang="en"
+        >
           🇬🇧 English
         </button>
 
-        <button data-lang="tr">
+        <button
+          type="button"
+          data-lang="tr"
+        >
           🇹🇷 Türkçe
         </button>
 
@@ -1331,7 +1584,55 @@ textarea.form-input{
 </header>
 
 
-<!-- HOME -->
+<!-- =====================================================
+     WALLET STATUS
+===================================================== -->
+
+<div
+  id="walletStatus"
+  class="wallet-status-card"
+  style="display:none;"
+>
+
+  <div class="wallet-status-left">
+
+    <div class="wallet-status-dot"></div>
+
+    <div>
+
+      <div
+        class="wallet-status-title"
+        data-i18n="walletConnected"
+      >
+        Wallet Connected
+      </div>
+
+      <div
+        id="walletAddress"
+        class="wallet-status-address"
+      >
+        —
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <button
+    id="copyWallet"
+    class="wallet-copy"
+    type="button"
+  >
+    COPY
+  </button>
+
+</div>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
 
 <main id="homeScreen">
 
@@ -1347,8 +1648,8 @@ textarea.form-input{
     </h1>
 
     <p data-i18n="hero">
-      Discover and launch projects on TON with Noventra.
-      Simple tools for builders and communities.
+      Launch your project on TON with Noventra.
+      Built for builders, communities and the next generation of Web3.
     </p>
 
   </section>
@@ -1388,6 +1689,7 @@ textarea.form-input{
     <button
       class="create-btn"
       id="createBtn"
+      type="button"
       data-i18n="createButton"
     >
       + CREATE LAUNCH
@@ -1420,6 +1722,7 @@ textarea.form-input{
 
     <button
       class="filter active"
+      type="button"
       data-filter="all"
       data-i18n="all"
     >
@@ -1428,6 +1731,7 @@ textarea.form-input{
 
     <button
       class="filter"
+      type="button"
       data-filter="live"
       data-i18n="live"
     >
@@ -1436,6 +1740,7 @@ textarea.form-input{
 
     <button
       class="filter"
+      type="button"
       data-filter="upcoming"
       data-i18n="upcoming"
     >
@@ -1444,6 +1749,7 @@ textarea.form-input{
 
     <button
       class="filter"
+      type="button"
       data-filter="ended"
       data-i18n="ended"
     >
@@ -1453,7 +1759,7 @@ textarea.form-input{
   </div>
 
 
-  <!-- REAL DATA CONTAINER -->
+  <!-- LAUNCH LIST -->
 
   <div
     class="launch-list"
@@ -1491,6 +1797,7 @@ textarea.form-input{
     <button
       class="empty-create"
       id="emptyCreateBtn"
+      type="button"
       data-i18n="firstLaunch"
     >
       CREATE FIRST LAUNCH
@@ -1516,7 +1823,9 @@ textarea.form-input{
 </main>
 
 
-<!-- CREATE SCREEN -->
+<!-- =====================================================
+     CREATE SCREEN
+===================================================== -->
 
 <section
   class="create-screen"
@@ -1526,6 +1835,7 @@ textarea.form-input{
   <button
     class="back-btn"
     id="backBtn"
+    type="button"
   >
     ←
     <span data-i18n="back">
@@ -1891,6 +2201,7 @@ textarea.form-input{
   <button
     class="launch-submit"
     id="launchSubmit"
+    type="button"
     data-i18n="continue"
   >
     CONTINUE
@@ -1901,8 +2212,7 @@ textarea.form-input{
     class="notice"
     data-i18n="notice"
   >
-    This version prepares and stores your launch configuration locally.
-    Wallet connection and on-chain deployment will be connected in the next phase.
+    Wallet connection is active. Blockchain deployment will be connected in the next phase.
   </div>
 
 </section>
@@ -1910,7 +2220,9 @@ textarea.form-input{
 </div>
 
 
-<!-- DETAIL MODAL -->
+<!-- =====================================================
+     DETAIL MODAL
+===================================================== -->
 
 <div
   class="modal"
@@ -1931,6 +2243,7 @@ textarea.form-input{
       <button
         class="modal-close"
         id="modalClose"
+        type="button"
         aria-label="Close"
       >
         ×
@@ -2021,25 +2334,43 @@ textarea.form-input{
 
 /* =========================================================
    NOVENTRA LAUNCH
-   Single-file MVP
+   PHASE 1
+   TON CONNECT + TELEGRAM MINI APP
    ========================================================= */
 
 
-/* TELEGRAM */
+/* =========================================================
+   TELEGRAM
+   ========================================================= */
 
-const tg = window.Telegram?.WebApp || null;
+const tg =
+  window.Telegram?.WebApp || null;
+
 
 if(tg){
 
   try{
 
     tg.ready();
+
     tg.expand();
 
-    tg.setHeaderColor?.("#05080d");
-    tg.setBackgroundColor?.("#05080d");
+    tg.setHeaderColor?.(
+      "#05080d"
+    );
 
-  }catch{}
+    tg.setBackgroundColor?.(
+      "#05080d"
+    );
+
+  }catch(error){
+
+    console.warn(
+      "Telegram WebApp initialization error:",
+      error
+    );
+
+  }
 
 }
 
@@ -2049,10 +2380,21 @@ if(tg){
    ========================================================= */
 
 const STORAGE_KEY =
-  "noventra_launch_drafts_v1";
+  "noventra_launch_drafts_v2";
 
 const LANGUAGE_KEY =
-  "noventra_launch_language_v2";
+  "noventra_launch_language_v3";
+
+
+/*
+  IMPORTANT:
+
+  This manifest URL must be publicly accessible
+  through HTTPS.
+*/
+
+const NOVENTRA_MANIFEST =
+  "https://getnoventra.org/tonconnect-manifest.json";
 
 
 /* =========================================================
@@ -2060,13 +2402,29 @@ const LANGUAGE_KEY =
    ========================================================= */
 
 let lang =
-  localStorage.getItem(LANGUAGE_KEY) || "en";
+  localStorage.getItem(
+    LANGUAGE_KEY
+  ) || "en";
 
-let selectedType = "fair";
 
-let activeFilter = "all";
+let selectedType =
+  "fair";
 
-let currentLaunch = null;
+
+let activeFilter =
+  "all";
+
+
+let currentLaunch =
+  null;
+
+
+let tonConnectUI =
+  null;
+
+
+let connectedWallet =
+  null;
 
 
 /* =========================================================
@@ -2077,7 +2435,8 @@ const T = {
 
   en:{
 
-    subtitle:"TON Launchpad",
+    subtitle:
+      "TON Launchpad",
 
     hero:
       "Launch your project on TON with Noventra. Built for builders, communities and the next generation of Web3.",
@@ -2094,10 +2453,17 @@ const T = {
     featured:
       "Featured Launches",
 
-    all:"All",
-    live:"Live",
-    upcoming:"Upcoming",
-    ended:"Ended",
+    all:
+      "All",
+
+    live:
+      "Live",
+
+    upcoming:
+      "Upcoming",
+
+    ended:
+      "Ended",
 
     emptyTitle:
       "No launches yet",
@@ -2172,7 +2538,7 @@ const T = {
       "CONTINUE",
 
     notice:
-      "This version prepares and stores your launch configuration locally. Wallet connection and on-chain deployment will be connected in the next phase.",
+      "Wallet connection is active. Blockchain deployment will be connected in the next phase.",
 
     enterName:
       "Enter a project name.",
@@ -2192,9 +2558,6 @@ const T = {
     saved:
       "Launch configuration saved.",
 
-    localOnly:
-      "Saved locally. Blockchain deployment is not active yet.",
-
     noFilter:
       "No launches in this category.",
 
@@ -2205,7 +2568,10 @@ const T = {
       "UPCOMING",
 
     endedStatus:
-      "ENDED"
+      "ENDED",
+
+    walletConnected:
+      "Wallet Connected"
 
   },
 
@@ -2315,7 +2681,7 @@ const T = {
       "DEVAM ET",
 
     notice:
-      "Bu sürüm launch yapılandırmasını yerel olarak hazırlar ve kaydeder. Cüzdan bağlantısı ve blockchain deployment sonraki aşamada eklenecektir.",
+      "Wallet bağlantısı aktif. Blockchain deployment sonraki aşamada bağlanacaktır.",
 
     enterName:
       "Proje adını girin.",
@@ -2335,9 +2701,6 @@ const T = {
     saved:
       "Launch yapılandırması kaydedildi.",
 
-    localOnly:
-      "Yerel olarak kaydedildi. Blockchain deployment henüz aktif değil.",
-
     noFilter:
       "Bu kategoride launch bulunmuyor.",
 
@@ -2348,7 +2711,10 @@ const T = {
       "YAKINDA",
 
     endedStatus:
-      "SONA ERDİ"
+      "SONA ERDİ",
+
+    walletConnected:
+      "Wallet Bağlandı"
 
   }
 
@@ -2360,7 +2726,8 @@ const T = {
    ========================================================= */
 
 const $ =
-  id => document.getElementById(id);
+  id =>
+    document.getElementById(id);
 
 
 function t(key){
@@ -2374,36 +2741,362 @@ function t(key){
 }
 
 
-function haptic(type="light"){
+function haptic(
+  type="light"
+){
 
   try{
-    tg?.HapticFeedback?.impactOccurred(type);
+
+    tg?.HapticFeedback
+      ?.impactOccurred(type);
+
   }catch{}
 
 }
 
 
-function toast(message){
+function toast(
+  message
+){
 
   const el =
     $("toast");
 
+  if(!el)
+    return;
+
+
   el.textContent =
     message;
 
-  el.classList.add("show");
+
+  el.classList.add(
+    "show"
+  );
+
 
   clearTimeout(
     toast.timer
   );
 
+
   toast.timer =
     setTimeout(
       ()=>{
-        el.classList.remove("show");
+
+        el.classList.remove(
+          "show"
+        );
+
       },
       2400
     );
+
+}
+
+
+/* =========================================================
+   TON CONNECT
+   ========================================================= */
+
+function initTonConnect(){
+
+  if(
+    !window.TON_CONNECT_UI ||
+    !window.TON_CONNECT_UI.TonConnectUI
+  ){
+
+    console.error(
+      "TON Connect UI failed to load."
+    );
+
+    toast(
+      lang === "tr"
+        ? "TON Connect yüklenemedi."
+        : "TON Connect failed to load."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    tonConnectUI =
+      new TON_CONNECT_UI.TonConnectUI({
+
+        manifestUrl:
+          NOVENTRA_MANIFEST,
+
+        buttonRootId:
+          "ton-connect",
+
+        restoreConnection:
+          true,
+
+        language:
+          lang === "tr"
+            ? "tr"
+            : "en"
+
+      });
+
+
+    tonConnectUI.onStatusChange(
+
+      wallet => {
+
+        connectedWallet =
+          wallet || null;
+
+
+        if(wallet){
+
+          handleWalletConnected(
+            wallet
+          );
+
+        }else{
+
+          handleWalletDisconnected();
+
+        }
+
+      }
+
+    );
+
+
+    console.log(
+      "Noventra TON Connect initialized."
+    );
+
+  }catch(error){
+
+    console.error(
+      "TON Connect initialization failed:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   WALLET CONNECTED
+   ========================================================= */
+
+function handleWalletConnected(
+  wallet
+){
+
+  const address =
+    wallet?.account?.address;
+
+
+  if(!address)
+    return;
+
+
+  document.body.classList.add(
+    "wallet-connected"
+  );
+
+
+  const status =
+    $("walletStatus");
+
+
+  const addressEl =
+    $("walletAddress");
+
+
+  if(status)
+    status.style.display =
+      "flex";
+
+
+  if(addressEl)
+    addressEl.textContent =
+      shortenTonAddress(
+        address
+      );
+
+
+  window.noventraWallet =
+    address;
+
+
+  console.log(
+    "Noventra wallet connected:",
+    address
+  );
+
+
+  haptic(
+    "medium"
+  );
+
+}
+
+
+/* =========================================================
+   WALLET DISCONNECTED
+   ========================================================= */
+
+function handleWalletDisconnected(){
+
+  connectedWallet =
+    null;
+
+
+  document.body.classList.remove(
+    "wallet-connected"
+  );
+
+
+  const status =
+    $("walletStatus");
+
+
+  if(status)
+    status.style.display =
+      "none";
+
+
+  window.noventraWallet =
+    null;
+
+
+  console.log(
+    "Noventra wallet disconnected."
+  );
+
+}
+
+
+/* =========================================================
+   WALLET HELPERS
+   ========================================================= */
+
+function shortenTonAddress(
+  address
+){
+
+  if(!address)
+    return "—";
+
+
+  if(address.length <= 18)
+    return address;
+
+
+  return (
+    address.slice(0,9) +
+    "..." +
+    address.slice(-9)
+  );
+
+}
+
+
+function getConnectedWalletAddress(){
+
+  return (
+    connectedWallet
+      ?.account
+      ?.address ||
+    null
+  );
+
+}
+
+
+function isWalletConnected(){
+
+  return Boolean(
+    getConnectedWalletAddress()
+  );
+
+}
+
+
+/* =========================================================
+   COPY WALLET
+   ========================================================= */
+
+const copyWalletButton =
+  $("copyWallet");
+
+
+if(copyWalletButton){
+
+  copyWalletButton.addEventListener(
+
+    "click",
+
+    async ()=>{
+
+      const address =
+        getConnectedWalletAddress();
+
+
+      if(!address){
+
+        toast(
+          lang === "tr"
+            ? "Wallet bağlı değil."
+            : "Wallet not connected."
+        );
+
+        return;
+
+      }
+
+
+      try{
+
+        await navigator
+          .clipboard
+          .writeText(
+            address
+          );
+
+
+        copyWalletButton.textContent =
+          "COPIED";
+
+
+        haptic(
+          "light"
+        );
+
+
+        setTimeout(
+          ()=>{
+
+            copyWalletButton.textContent =
+              "COPY";
+
+          },
+          1500
+        );
+
+      }catch{
+
+        toast(
+          lang === "tr"
+            ? "Adres kopyalanamadı."
+            : "Could not copy wallet."
+        );
+
+      }
+
+    }
+
+  );
 
 }
 
@@ -2421,11 +3114,16 @@ function getLaunches(){
         STORAGE_KEY
       );
 
+
     if(!raw)
       return [];
 
+
     const parsed =
-      JSON.parse(raw);
+      JSON.parse(
+        raw
+      );
+
 
     return Array.isArray(parsed)
       ? parsed
@@ -2440,7 +3138,9 @@ function getLaunches(){
 }
 
 
-function saveLaunches(items){
+function saveLaunches(
+  items
+){
 
   localStorage.setItem(
     STORAGE_KEY,
@@ -2459,19 +3159,44 @@ function applyLanguage(){
   document.documentElement.lang =
     lang;
 
+
   document
-    .querySelectorAll("[data-i18n]")
-    .forEach(el=>{
+    .querySelectorAll(
+      "[data-i18n]"
+    )
+    .forEach(
+      el => {
 
-      el.textContent =
-        t(el.dataset.i18n);
+        el.textContent =
+          t(
+            el.dataset.i18n
+          );
 
-    });
+      }
+    );
 
 
   $("langBtn").textContent =
-    (lang==="tr" ? "TR" : "EN")
-    + " ▾";
+    (
+      lang === "tr"
+        ? "TR"
+        : "EN"
+    ) + " ▾";
+
+
+  if(tonConnectUI){
+
+    try{
+
+      tonConnectUI.setLanguage?.(
+        lang === "tr"
+          ? "tr"
+          : "en"
+      );
+
+    }catch{}
+
+  }
 
 
   renderLaunches(
@@ -2481,61 +3206,83 @@ function applyLanguage(){
 }
 
 
-function setLanguage(value){
+function setLanguage(
+  value
+){
 
   if(!T[value])
     return;
 
+
   lang =
     value;
+
 
   localStorage.setItem(
     LANGUAGE_KEY,
     lang
   );
 
+
   $("langMenu")
-    .classList.remove("open");
+    .classList
+    .remove(
+      "open"
+    );
+
 
   applyLanguage();
 
-  haptic("light");
+
+  haptic(
+    "light"
+  );
 
 }
 
 
-$("langBtn").addEventListener(
-  "click",
-  e=>{
+$("langBtn")
+  .addEventListener(
+    "click",
+    e => {
 
-    e.stopPropagation();
+      e.stopPropagation();
 
-    $("langMenu")
-      .classList.toggle("open");
+      $("langMenu")
+        .classList
+        .toggle(
+          "open"
+        );
 
-  }
-);
+    }
+  );
 
 
 document
-  .querySelectorAll("[data-lang]")
-  .forEach(btn=>{
+  .querySelectorAll(
+    "[data-lang]"
+  )
+  .forEach(
+    btn => {
 
-    btn.addEventListener(
-      "click",
-      ()=>{
-        setLanguage(
-          btn.dataset.lang
-        );
-      }
-    );
+      btn.addEventListener(
+        "click",
+        ()=>{
 
-  });
+          setLanguage(
+            btn.dataset.lang
+          );
+
+        }
+      );
+
+    }
+  );
 
 
 document.addEventListener(
   "click",
-  e=>{
+  e => {
 
     if(
       !e.target.closest(
@@ -2544,7 +3291,8 @@ document.addEventListener(
     ){
 
       $("langMenu")
-        .classList.remove(
+        .classList
+        .remove(
           "open"
         );
 
@@ -2561,10 +3309,16 @@ document.addEventListener(
 function showHome(){
 
   $("createScreen")
-    .style.display = "none";
+    .style
+    .display =
+      "none";
+
 
   $("homeScreen")
-    .style.display = "block";
+    .style
+    .display =
+      "block";
+
 
   window.scrollTo({
     top:0,
@@ -2577,15 +3331,22 @@ function showHome(){
 function showCreate(){
 
   $("homeScreen")
-    .style.display = "none";
+    .style
+    .display =
+      "none";
+
 
   $("createScreen")
-    .style.display = "block";
+    .style
+    .display =
+      "block";
+
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
+
 
   setTimeout(
     ()=>{
@@ -2595,30 +3356,39 @@ function showCreate(){
     180
   );
 
-  haptic("light");
+
+  haptic(
+    "light"
+  );
 
 }
 
 
-$("createBtn").addEventListener(
-  "click",
-  showCreate
-);
+$("createBtn")
+  .addEventListener(
+    "click",
+    showCreate
+  );
 
 
-$("emptyCreateBtn").addEventListener(
-  "click",
-  showCreate
-);
+$("emptyCreateBtn")
+  .addEventListener(
+    "click",
+    showCreate
+  );
 
 
-$("backBtn").addEventListener(
-  "click",
-  ()=>{
-    showHome();
-    haptic("light");
-  }
-);
+$("backBtn")
+  .addEventListener(
+    "click",
+    ()=>{
+      showHome();
+
+      haptic(
+        "light"
+      );
+    }
+  );
 
 
 /* =========================================================
@@ -2626,39 +3396,51 @@ $("backBtn").addEventListener(
    ========================================================= */
 
 document
-  .querySelectorAll(".type-option")
-  .forEach(option=>{
+  .querySelectorAll(
+    ".type-option"
+  )
+  .forEach(
+    option => {
 
-    option.addEventListener(
-      "click",
-      ()=>{
+      option.addEventListener(
+        "click",
+        ()=>{
 
-        document
-          .querySelectorAll(
-            ".type-option"
-          )
-          .forEach(item=>{
-            item.classList.remove(
+          document
+            .querySelectorAll(
+              ".type-option"
+            )
+            .forEach(
+              item => {
+
+                item.classList
+                  .remove(
+                    "active"
+                  );
+
+              }
+            );
+
+
+          option.classList
+            .add(
               "active"
             );
-          });
 
 
-        option.classList.add(
-          "active"
-        );
+          selectedType =
+            option.dataset.type;
 
 
-        selectedType =
-          option.dataset.type;
+          haptic(
+            "light"
+          );
 
+        }
+      );
 
-        haptic("light");
-
-      }
-    );
-
-  });
+    }
+  );
 
 
 /* =========================================================
@@ -2672,11 +3454,13 @@ function validateForm(){
       .value
       .trim();
 
+
   const symbol =
     $("tokenSymbol")
       .value
       .trim()
       .toUpperCase();
+
 
   const supply =
     Number(
@@ -2684,17 +3468,20 @@ function validateForm(){
         .value
     );
 
+
   const price =
     Number(
       $("tokenPrice")
         .value || 0
     );
 
+
   const softCap =
     Number(
       $("softCap")
         .value || 0
     );
+
 
   const hardCap =
     Number(
@@ -2709,8 +3496,10 @@ function validateForm(){
       t("enterName")
     );
 
+
     $("projectName")
       .focus();
+
 
     return null;
 
@@ -2723,8 +3512,10 @@ function validateForm(){
       t("enterSymbol")
     );
 
+
     $("tokenSymbol")
       .focus();
+
 
     return null;
 
@@ -2732,7 +3523,9 @@ function validateForm(){
 
 
   if(
-    !Number.isFinite(supply) ||
+    !Number.isFinite(
+      supply
+    ) ||
     supply <= 0
   ){
 
@@ -2740,8 +3533,10 @@ function validateForm(){
       t("enterSupply")
     );
 
+
     $("totalSupply")
       .focus();
+
 
     return null;
 
@@ -2750,15 +3545,19 @@ function validateForm(){
 
   if(
     price < 0 ||
-    !Number.isFinite(price)
+    !Number.isFinite(
+      price
+    )
   ){
 
     toast(
       t("invalidPrice")
     );
 
+
     $("tokenPrice")
       .focus();
+
 
     return null;
 
@@ -2774,8 +3573,10 @@ function validateForm(){
       t("invalidCap")
     );
 
+
     $("hardCap")
       .focus();
+
 
     return null;
 
@@ -2800,149 +3601,216 @@ function validateForm(){
    CREATE LAUNCH
    ========================================================= */
 
-$("launchSubmit").addEventListener(
-  "click",
-  ()=>{
+$("launchSubmit")
+  .addEventListener(
+    "click",
+    ()=>{
 
-    const values =
-      validateForm();
+      /*
+        PHASE 1:
+        Wallet MUST be connected before
+        creating a launch configuration.
+      */
 
-    if(!values)
-      return;
+      if(
+        !isWalletConnected()
+      ){
 
-
-    const logo =
-      $("logoUrl")
-        .value
-        .trim();
-
-    const description =
-      $("projectDescription")
-        .value
-        .trim();
-
-    const decimals =
-      Number(
-        $("decimals")
-          .value
-      );
-
-    const currency =
-      $("currency")
-        .value;
-
-
-    const launch = {
-
-      id:
-        "draft_" +
-        Date.now(),
-
-      name:
-        values.name,
-
-      symbol:
-        values.symbol,
-
-      logo:
-        logo,
-
-      description:
-        description,
-
-      type:
-        selectedType,
-
-      status:
-        "upcoming",
-
-      raised:
-        0,
-
-      target:
-        values.hardCap,
-
-      progress:
-        0,
-
-      supply:
-        values.supply,
-
-      decimals:
-        decimals,
-
-      price:
-        values.price,
-
-      softCap:
-        values.softCap,
-
-      hardCap:
-        values.hardCap,
-
-      currency:
-        currency,
-
-      createdAt:
-        new Date().toISOString(),
-
-      local:
-        true
-
-    };
-
-
-    const launches =
-      getLaunches();
-
-
-    launches.unshift(
-      launch
-    );
-
-
-    saveLaunches(
-      launches
-    );
-
-
-    toast(
-      t("saved")
-    );
-
-    haptic("medium");
-
-
-    setTimeout(
-      ()=>{
-
-        showHome();
-
-        activeFilter =
-          "all";
-
-        document
-          .querySelectorAll(
-            ".filter"
-          )
-          .forEach(btn=>{
-            btn.classList.toggle(
-              "active",
-              btn.dataset.filter ===
-              "all"
-            );
-          });
-
-        renderLaunches(
-          "all"
+        toast(
+          lang === "tr"
+            ? "Devam etmek için TON cüzdanınızı bağlayın."
+            : "Connect your TON wallet to continue."
         );
 
-      },
-      700
-    );
 
-  }
-);
+        if(
+          tonConnectUI
+        ){
+
+          try{
+
+            tonConnectUI.openModal();
+
+          }catch(error){
+
+            console.error(
+              error
+            );
+
+          }
+
+        }
+
+
+        return;
+
+      }
+
+
+      const values =
+        validateForm();
+
+
+      if(!values)
+        return;
+
+
+      const logo =
+        $("logoUrl")
+          .value
+          .trim();
+
+
+      const description =
+        $("projectDescription")
+          .value
+          .trim();
+
+
+      const decimals =
+        Number(
+          $("decimals")
+            .value
+        );
+
+
+      const currency =
+        $("currency")
+          .value;
+
+
+      /*
+        Wallet identity is now attached
+        to the launch configuration.
+      */
+
+      const launch = {
+
+        id:
+          "draft_" +
+          Date.now(),
+
+        creatorWallet:
+          getConnectedWalletAddress(),
+
+        name:
+          values.name,
+
+        symbol:
+          values.symbol,
+
+        logo:
+          logo,
+
+        description:
+          description,
+
+        type:
+          selectedType,
+
+        status:
+          "upcoming",
+
+        raised:
+          0,
+
+        target:
+          values.hardCap,
+
+        progress:
+          0,
+
+        supply:
+          values.supply,
+
+        decimals:
+          decimals,
+
+        price:
+          values.price,
+
+        softCap:
+          values.softCap,
+
+        hardCap:
+          values.hardCap,
+
+        currency:
+          currency,
+
+        createdAt:
+          new Date().toISOString(),
+
+        local:
+          true,
+
+        phase:
+          1
+
+      };
+
+
+      const launches =
+        getLaunches();
+
+
+      launches.unshift(
+        launch
+      );
+
+
+      saveLaunches(
+        launches
+      );
+
+
+      toast(
+        t("saved")
+      );
+
+
+      haptic(
+        "medium"
+      );
+
+
+      setTimeout(
+        ()=>{
+
+          showHome();
+
+
+          activeFilter =
+            "all";
+
+
+          document
+            .querySelectorAll(
+              ".filter"
+            )
+            .forEach(
+              btn => {
+
+                btn.classList.toggle(
+                  "active",
+                  btn.dataset.filter ===
+                    "all"
+                );
+
+              }
+            );
+
+
+          renderLaunches(
+            "all"
+          );
+
+        },
+        700
+      );
+
+    }
+  );
 
 
 /* =========================================================
@@ -2953,13 +3821,25 @@ function getStatusText(
   status
 ){
 
-  if(status==="live")
-    return t("liveStatus");
+  if(
+    status === "live"
+  )
+    return t(
+      "liveStatus"
+    );
 
-  if(status==="upcoming")
-    return t("upcomingStatus");
 
-  return t("endedStatus");
+  if(
+    status === "upcoming"
+  )
+    return t(
+      "upcomingStatus"
+    );
+
+
+  return t(
+    "endedStatus"
+  );
 
 }
 
@@ -2968,11 +3848,17 @@ function getStatusClass(
   status
 ){
 
-  if(status==="live")
+  if(
+    status === "live"
+  )
     return "status-live";
 
-  if(status==="upcoming")
+
+  if(
+    status === "upcoming"
+  )
     return "status-upcoming";
+
 
   return "status-ended";
 
@@ -2980,10 +3866,12 @@ function getStatusClass(
 
 
 /* =========================================================
-   LAUNCH LOGO
+   LOGO
    ========================================================= */
 
-function renderLogo(item){
+function renderLogo(
+  item
+){
 
   if(item.logo){
 
@@ -2993,7 +3881,15 @@ function renderLogo(item){
         class="launch-logo"
         src="${escapeHtml(item.logo)}"
         alt=""
-        onerror="this.outerHTML='<div class=&quot;launch-logo fallback&quot;>${escapeHtml((item.symbol||item.name||'N').charAt(0).toUpperCase())}</div>'"
+        onerror="this.outerHTML='<div class=&quot;launch-logo fallback&quot;>${escapeHtml(
+          (
+            item.symbol ||
+            item.name ||
+            "N"
+          )
+          .charAt(0)
+          .toUpperCase()
+        )}</div>'"
       >
 
     `;
@@ -3007,8 +3903,8 @@ function renderLogo(item){
       item.name ||
       "N"
     )
-    .charAt(0)
-    .toUpperCase();
+      .charAt(0)
+      .toUpperCase();
 
 
   return `
@@ -3026,18 +3922,31 @@ function renderLogo(item){
    ESCAPE
    ========================================================= */
 
-function escapeHtml(value){
+function escapeHtml(
+  value
+){
 
-  return String(value ?? "")
+  return String(
+    value ?? ""
+  )
     .replace(
       /[&<>"']/g,
-      char=>({
+      char => ({
 
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
+        "&":
+          "&amp;",
+
+        "<":
+          "&lt;",
+
+        ">":
+          "&gt;",
+
+        '"':
+          "&quot;",
+
+        "'":
+          "&#039;"
 
       }[char])
     );
@@ -3062,21 +3971,29 @@ function formatNumber(
 
 
   const num =
-    Number(value);
+    Number(
+      value
+    );
 
 
-  if(!Number.isFinite(num))
+  if(
+    !Number.isFinite(
+      num
+    )
+  )
     return "—";
 
 
   return new Intl.NumberFormat(
-    lang==="tr"
+    lang === "tr"
       ? "tr-TR"
       : "en-US",
     {
       maximumFractionDigits:8
     }
-  ).format(num);
+  ).format(
+    num
+  );
 
 }
 
@@ -3096,6 +4013,7 @@ function renderLaunches(
   const list =
     $("launchList");
 
+
   const empty =
     $("emptyState");
 
@@ -3105,7 +4023,7 @@ function renderLaunches(
 
 
   const data =
-    filter==="all"
+    filter === "all"
       ? launches
       : launches.filter(
           item =>
@@ -3116,10 +4034,13 @@ function renderLaunches(
 
   if(!data.length){
 
-    list.innerHTML = "";
+    list.innerHTML =
+      "";
+
 
     empty.style.display =
       "block";
+
 
     empty.querySelector(
       ".empty-title"
@@ -3128,12 +4049,14 @@ function renderLaunches(
         ? t("noFilter")
         : t("emptyTitle");
 
+
     empty.querySelector(
       ".empty-text"
     ).textContent =
       launches.length
         ? t("noFilter")
         : t("emptyText");
+
 
     return;
 
@@ -3145,199 +4068,263 @@ function renderLaunches(
 
 
   list.innerHTML =
-    data.map(
-      item=>{
+    data
+      .map(
+        item => {
 
-        const target =
-          Number(item.target || 0);
+          const target =
+            Number(
+              item.target ||
+              0
+            );
 
-        const raised =
-          Number(item.raised || 0);
+
+          const raised =
+            Number(
+              item.raised ||
+              0
+            );
 
 
-        const progress =
-          target > 0
-            ? Math.min(
-                100,
-                Math.round(
-                  (
-                    raised /
-                    target
-                  ) * 100
+          const progress =
+            target > 0
+              ? Math.min(
+                  100,
+                  Math.round(
+                    (
+                      raised /
+                      target
+                    ) * 100
+                  )
                 )
-              )
-            : 0;
+              : 0;
 
 
-        const type =
-          item.type === "presale"
-            ? "Presale"
-            : "Fair Launch";
+          const type =
+            item.type ===
+            "presale"
+              ? "Presale"
+              : "Fair Launch";
 
 
-        return `
+          return `
 
-        <article
-          class="launch-card"
-        >
-
-          <div class="launch-top">
-
-            ${renderLogo(item)}
+          <article
+            class="launch-card"
+          >
 
             <div
-              class="launch-info"
+              class="launch-top"
             >
 
+              ${renderLogo(item)}
+
               <div
-                class="launch-name"
+                class="launch-info"
               >
-                ${escapeHtml(item.name)}
+
+                <div
+                  class="launch-name"
+                >
+                  ${escapeHtml(
+                    item.name
+                  )}
+                </div>
+
+                <div
+                  class="launch-symbol"
+                >
+                  $${escapeHtml(
+                    item.symbol
+                  )}
+                </div>
+
               </div>
 
+
               <div
-                class="launch-symbol"
+                class="launch-status ${getStatusClass(
+                  item.status
+                )}"
               >
-                $${escapeHtml(item.symbol)}
+                ${getStatusText(
+                  item.status
+                )}
               </div>
 
             </div>
 
-            <div
-              class="launch-status ${getStatusClass(item.status)}"
-            >
-              ${getStatusText(item.status)}
-            </div>
-
-          </div>
-
-
-          <div
-            class="launch-progress"
-          >
 
             <div
-              class="progress-head"
-            >
-
-              <span>
-                ${formatNumber(raised)}
-                ${escapeHtml(item.currency || "TON")}
-              </span>
-
-              <span>
-                ${formatNumber(target)}
-                ${escapeHtml(item.currency || "TON")}
-              </span>
-
-            </div>
-
-
-            <div
-              class="progress-bar"
+              class="launch-progress"
             >
 
               <div
-                class="progress-fill"
-                style="width:${progress}%"
-              ></div>
+                class="progress-head"
+              >
 
-            </div>
+                <span>
+                  ${formatNumber(
+                    raised
+                  )}
+                  ${escapeHtml(
+                    item.currency ||
+                    "TON"
+                  )}
+                </span>
 
-          </div>
+                <span>
+                  ${formatNumber(
+                    target
+                  )}
+                  ${escapeHtml(
+                    item.currency ||
+                    "TON"
+                  )}
+                </span>
 
-
-          <div
-            class="launch-meta"
-          >
-
-            <div class="meta">
-
-              <div class="meta-label">
-                Type
               </div>
 
-              <div class="meta-value">
-                ${type}
-              </div>
 
-            </div>
+              <div
+                class="progress-bar"
+              >
 
+                <div
+                  class="progress-fill"
+                  style="width:${progress}%"
+                ></div>
 
-            <div class="meta">
-
-              <div class="meta-label">
-                Raised
-              </div>
-
-              <div class="meta-value">
-                ${formatNumber(raised)}
-                ${escapeHtml(item.currency || "TON")}
-              </div>
-
-            </div>
-
-
-            <div class="meta">
-
-              <div class="meta-label">
-                Progress
-              </div>
-
-              <div class="meta-value">
-                ${progress}%
               </div>
 
             </div>
 
-          </div>
+
+            <div
+              class="launch-meta"
+            >
+
+              <div
+                class="meta"
+              >
+
+                <div
+                  class="meta-label"
+                >
+                  Type
+                </div>
+
+                <div
+                  class="meta-value"
+                >
+                  ${escapeHtml(
+                    type
+                  )}
+                </div>
+
+              </div>
 
 
-          <button
-            class="launch-open"
-            data-launch-id="${escapeHtml(item.id)}"
-          >
-            VIEW LAUNCH
-          </button>
+              <div
+                class="meta"
+              >
 
-        </article>
+                <div
+                  class="meta-label"
+                >
+                  Raised
+                </div>
 
-        `;
+                <div
+                  class="meta-value"
+                >
+                  ${formatNumber(
+                    raised
+                  )}
+                  ${escapeHtml(
+                    item.currency ||
+                    "TON"
+                  )}
+                </div>
 
-      }
-    ).join("");
+              </div>
+
+
+              <div
+                class="meta"
+              >
+
+                <div
+                  class="meta-label"
+                >
+                  Progress
+                </div>
+
+                <div
+                  class="meta-value"
+                >
+                  ${progress}%
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <button
+              class="launch-open"
+              type="button"
+              data-launch-id="${escapeHtml(
+                item.id
+              )}"
+            >
+              VIEW LAUNCH
+            </button>
+
+          </article>
+
+          `;
+
+        }
+      )
+      .join("");
 
 
   list
     .querySelectorAll(
       ".launch-open"
     )
-    .forEach(btn=>{
+    .forEach(
+      btn => {
 
-      btn.addEventListener(
-        "click",
-        ()=>{
+        btn.addEventListener(
+          "click",
+          ()=>{
 
-          const launch =
-            getLaunches()
-              .find(
-                item =>
-                  String(item.id) ===
-                  String(
-                    btn.dataset.launchId
-                  )
+            const launch =
+              getLaunches()
+                .find(
+                  item =>
+                    String(
+                      item.id
+                    ) ===
+                    String(
+                      btn.dataset
+                        .launchId
+                    )
+                );
+
+
+            if(launch)
+              openLaunch(
+                launch
               );
 
+          }
+        );
 
-          if(launch)
-            openLaunch(
-              launch
-            );
-
-        }
-      );
-
-    });
+      }
+    );
 
 }
 
@@ -3347,41 +4334,48 @@ function renderLaunches(
    ========================================================= */
 
 document
-  .querySelectorAll(".filter")
-  .forEach(btn=>{
+  .querySelectorAll(
+    ".filter"
+  )
+  .forEach(
+    btn => {
 
-    btn.addEventListener(
-      "click",
-      ()=>{
+      btn.addEventListener(
+        "click",
+        ()=>{
 
-        document
-          .querySelectorAll(
-            ".filter"
-          )
-          .forEach(
-            x =>
-              x.classList.remove(
-                "active"
-              )
+          document
+            .querySelectorAll(
+              ".filter"
+            )
+            .forEach(
+              x =>
+                x.classList
+                  .remove(
+                    "active"
+                  )
+            );
+
+
+          btn.classList.add(
+            "active"
           );
 
 
-        btn.classList.add(
-          "active"
-        );
+          renderLaunches(
+            btn.dataset.filter
+          );
 
 
-        renderLaunches(
-          btn.dataset.filter
-        );
+          haptic(
+            "light"
+          );
 
+        }
+      );
 
-        haptic("light");
-
-      }
-    );
-
-  });
+    }
+  );
 
 
 /* =========================================================
@@ -3443,12 +4437,15 @@ function openLaunch(
 
 
   $("modal")
-    .classList.add(
+    .classList
+    .add(
       "show"
     );
 
 
-  haptic("light");
+  haptic(
+    "light"
+  );
 
 }
 
@@ -3458,8 +4455,10 @@ function closeModal(){
   currentLaunch =
     null;
 
+
   $("modal")
-    .classList.remove(
+    .classList
+    .remove(
       "show"
     );
 
@@ -3476,7 +4475,7 @@ $("modalClose")
 $("modal")
   .addEventListener(
     "click",
-    e=>{
+    e => {
 
       if(
         e.target ===
@@ -3493,10 +4492,11 @@ $("modal")
 
 document.addEventListener(
   "keydown",
-  e=>{
+  e => {
 
     if(
-      e.key === "Escape"
+      e.key ===
+      "Escape"
     ){
 
       closeModal();
@@ -3511,9 +4511,12 @@ document.addEventListener(
    TELEGRAM BACK BUTTON
    ========================================================= */
 
-if(tg?.BackButton){
+if(
+  tg?.BackButton
+){
 
   tg.BackButton.show();
+
 
   tg.BackButton.onClick(
     ()=>{
@@ -3521,7 +4524,9 @@ if(tg?.BackButton){
       if(
         $("modal")
           .classList
-          .contains("show")
+          .contains(
+            "show"
+          )
       ){
 
         closeModal();
@@ -3534,7 +4539,8 @@ if(tg?.BackButton){
       if(
         $("createScreen")
           .style
-          .display === "block"
+          .display ===
+          "block"
       ){
 
         showHome();
@@ -3544,7 +4550,11 @@ if(tg?.BackButton){
       }
 
 
-      tg.close();
+      try{
+
+        tg.close();
+
+      }catch{}
 
     }
   );
@@ -3559,7 +4569,7 @@ if(tg?.BackButton){
 $("tokenSymbol")
   .addEventListener(
     "input",
-    e=>{
+    e => {
 
       e.target.value =
         e.target.value
@@ -3576,13 +4586,16 @@ $("tokenSymbol")
 $("totalSupply")
   .addEventListener(
     "input",
-    e=>{
+    e => {
 
       if(
-        Number(e.target.value) < 0
+        Number(
+          e.target.value
+        ) < 0
       ){
 
-        e.target.value = "";
+        e.target.value =
+          "";
 
       }
 
@@ -3596,7 +4609,36 @@ $("totalSupply")
 
 applyLanguage();
 
-renderLaunches("all");
+renderLaunches(
+  "all"
+);
+
+
+/*
+  Small delay makes sure the CDN
+  script has initialized before
+  TON Connect is created.
+*/
+
+if(
+  window.TON_CONNECT_UI
+){
+
+  initTonConnect();
+
+}else{
+
+  window.addEventListener(
+    "load",
+    ()=>{
+      initTonConnect();
+    },
+    {
+      once:true
+    }
+  );
+
+}
 
 </script>
 
