@@ -2,86 +2,154 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+>
+
 <meta name="theme-color" content="#06090f">
-<meta name="description" content="Noventra Launch — Launch projects on TON">
+<meta name="color-scheme" content="dark">
+
+<meta
+  name="description"
+  content="Noventra Launch — Launch projects on TON."
+>
+
 <title>Noventra Launch</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
+
 :root{
-  --bg:#06090f;
-  --bg2:#0a0f18;
-  --card:#0e1520;
-  --card2:#121a27;
-  --card3:#161f2e;
-  --border:#1c2736;
-  --border2:#26354a;
-  --text:#f1f5f9;
-  --muted:#7b8ca3;
-  --muted2:#5a6b82;
+  --bg:#05080d;
+  --bg2:#080d14;
+  --surface:#0c131d;
+  --surface2:#101925;
+  --surface3:#141f2d;
+
+  --border:#1a2737;
+  --border2:#26384d;
+
+  --text:#f4f7fb;
+  --text2:#d6deea;
+
+  --muted:#8190a5;
+  --muted2:#5c6c80;
 
   --blue:#3da9ff;
-  --blue2:#1e90e8;
+  --blue2:#167ee0;
+  --blue3:#70c5ff;
+
   --green:#22d39a;
-  --yellow:#f5c14a;
-  --red:#ff5d6c;
-  --purple:#8b6cff;
+  --yellow:#f4c452;
+  --red:#ff6170;
+  --purple:#8c6cff;
 
-  --blue-dim:#3da9ff18;
-  --green-dim:#22d39a18;
-  --yellow-dim:#f5c14a18;
-  --red-dim:#ff5d6c18;
-  --purple-dim:#8b6cff18;
+  --blue-dim:rgba(61,169,255,.10);
+  --green-dim:rgba(34,211,154,.10);
+  --yellow-dim:rgba(244,196,82,.10);
+  --red-dim:rgba(255,97,112,.10);
 
-  --radius:16px;
+  --radius:18px;
   --radius-sm:12px;
-  --shadow:0 8px 32px rgba(0,0,0,.35);
 
-  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
-  "Helvetica Neue",Arial,sans-serif;
+  --shadow:
+    0 18px 50px rgba(0,0,0,.38);
 
-  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --font:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+
+  --mono:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
 }
+
+
+/* RESET */
 
 *{
   box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
   margin:0;
   padding:0;
+  -webkit-tap-highlight-color:transparent;
 }
 
-html,body{
+html{
   min-height:100%;
   background:var(--bg);
-  color:var(--text);
-  font-family:var(--font);
-  -webkit-font-smoothing:antialiased;
 }
 
 body{
-  overflow-x:hidden;
+  min-height:100%;
+  background:
+    radial-gradient(
+      circle at 50% -15%,
+      rgba(61,169,255,.08),
+      transparent 35%
+    ),
+    var(--bg);
+
+  color:var(--text);
+  font-family:var(--font);
   line-height:1.5;
+  overflow-x:hidden;
+
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
 }
 
-button,input,select,textarea{
+button,
+input,
+textarea,
+select{
   font:inherit;
-  border:none;
-  outline:none;
   color:inherit;
+  outline:none;
 }
 
 button{
+  border:0;
   cursor:pointer;
 }
 
+input,
+textarea,
+select{
+  appearance:none;
+  -webkit-appearance:none;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+
+/* APP */
+
 .app{
   width:100%;
-  max-width:680px;
+  max-width:700px;
   margin:0 auto;
-  padding:12px 14px 100px;
+
+  padding:
+    calc(12px + env(safe-area-inset-top))
+    14px
+    calc(100px + env(safe-area-inset-bottom));
 }
+
 
 /* HEADER */
 
@@ -89,33 +157,41 @@ button{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:22px;
-  padding-top:4px;
+
+  min-height:48px;
+  margin-bottom:26px;
 }
 
 .brand{
   display:flex;
   align-items:center;
   gap:11px;
+  min-width:0;
 }
 
 .logo{
   width:40px;
   height:40px;
-  border-radius:50%;
+
+  border-radius:13px;
+
   object-fit:cover;
+
+  background:#0a1018;
   border:1px solid var(--border2);
-  background:#0b1018;
+
+  flex-shrink:0;
 }
 
 .brand-title{
-  font-size:16px;
+  font-size:15px;
   font-weight:900;
+  letter-spacing:-.2px;
 }
 
 .brand-sub{
-  font-size:11px;
   color:var(--muted);
+  font-size:10px;
   margin-top:1px;
 }
 
@@ -126,41 +202,68 @@ button{
 }
 
 .network{
-  padding:6px 10px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  padding:7px 10px;
+
   border-radius:20px;
+
+  color:var(--blue3);
+
+  background:var(--blue-dim);
+  border:1px solid rgba(61,169,255,.18);
+
   font-size:9px;
   font-weight:900;
   letter-spacing:.4px;
-  color:var(--blue);
-  border:1px solid #1a3a52;
-  background:#0c1925;
 }
 
-.lang-btn{
-  padding:6px 10px;
-  border-radius:20px;
-  background:var(--card2);
-  color:#c5d0dc;
-  border:1px solid var(--border);
-  font-size:10px;
-  font-weight:800;
+.network-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 8px rgba(34,211,154,.8);
 }
 
 .lang-area{
   position:relative;
 }
 
+.lang-btn{
+  padding:7px 10px;
+
+  border-radius:20px;
+
+  color:var(--text2);
+  background:var(--surface2);
+
+  border:1px solid var(--border);
+
+  font-size:9px;
+  font-weight:900;
+}
+
 .lang-menu{
   display:none;
+
   position:absolute;
   right:0;
-  top:36px;
-  z-index:100;
-  min-width:125px;
-  background:var(--card3);
+  top:39px;
+
+  z-index:200;
+
+  width:135px;
+
+  padding:5px;
+
+  background:var(--surface3);
   border:1px solid var(--border2);
-  border-radius:12px;
-  padding:4px;
+
+  border-radius:13px;
+
   box-shadow:var(--shadow);
 }
 
@@ -171,42 +274,59 @@ button{
 .lang-menu button{
   display:block;
   width:100%;
+
+  padding:10px 11px;
+
+  border-radius:9px;
+
   text-align:left;
-  padding:9px 12px;
-  border-radius:8px;
-  font-size:12px;
-  font-weight:600;
-  background:none;
+
+  background:transparent;
+
+  color:var(--text2);
+
+  font-size:11px;
+  font-weight:700;
 }
 
 .lang-menu button:active{
-  background:#1a2636;
+  background:#1a2635;
 }
+
 
 /* HERO */
 
 .hero{
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
 .badge{
   display:inline-flex;
-  padding:5px 9px;
+  align-items:center;
+
+  padding:6px 9px;
+
   border-radius:8px;
+
   background:var(--blue-dim);
-  border:1px solid #3da9ff30;
-  color:#70c2ff;
-  font-size:9px;
+  border:1px solid rgba(61,169,255,.18);
+
+  color:var(--blue3);
+
+  font-size:8px;
   font-weight:900;
-  letter-spacing:.7px;
-  margin-bottom:10px;
+  letter-spacing:.8px;
 }
 
 .hero h1{
-  font-size:28px;
-  line-height:1.1;
-  font-weight:900;
-  letter-spacing:-.8px;
+  margin-top:11px;
+
+  font-size:31px;
+  line-height:1.05;
+
+  font-weight:950;
+
+  letter-spacing:-1.1px;
 }
 
 .hero h1 span{
@@ -214,45 +334,91 @@ button{
 }
 
 .hero p{
-  margin-top:9px;
+  max-width:520px;
+
+  margin-top:10px;
+
   color:var(--muted);
-  font-size:13px;
-  line-height:1.55;
-  max-width:470px;
+
+  font-size:12px;
+  line-height:1.65;
 }
 
-/* CREATE */
+
+/* CREATE CARD */
 
 .create-card{
-  background:
-    linear-gradient(145deg,#101c2a,#0b121c);
-  border:1px solid #21354a;
-  border-radius:var(--radius);
+  position:relative;
+
+  overflow:hidden;
+
   padding:18px;
-  margin-bottom:18px;
+
+  margin-bottom:25px;
+
+  border-radius:var(--radius);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(16,29,44,.98),
+      rgba(9,15,24,.98)
+    );
+
+  border:1px solid #20364c;
+
   box-shadow:var(--shadow);
 }
 
+.create-card::after{
+  content:"";
+
+  position:absolute;
+
+  width:150px;
+  height:150px;
+
+  right:-65px;
+  top:-80px;
+
+  border-radius:50%;
+
+  background:rgba(61,169,255,.08);
+
+  filter:blur(5px);
+
+  pointer-events:none;
+}
+
 .create-top{
+  position:relative;
+  z-index:1;
+
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:13px;
 }
 
 .create-icon{
-  width:48px;
-  height:48px;
-  border-radius:14px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:23px;
+
+  width:49px;
+  height:49px;
+
+  border-radius:14px;
+
   background:var(--blue-dim);
-  border:1px solid #3da9ff30;
+  border:1px solid rgba(61,169,255,.2);
+
+  font-size:22px;
+
+  flex-shrink:0;
 }
 
 .create-info{
-  flex:1;
+  min-width:0;
 }
 
 .create-title{
@@ -261,50 +427,88 @@ button{
 }
 
 .create-desc{
+  margin-top:2px;
+
   color:var(--muted);
+
   font-size:10px;
-  margin-top:3px;
 }
 
 .create-btn{
+  position:relative;
+  z-index:1;
+
   width:100%;
   height:48px;
+
   margin-top:15px;
+
   border-radius:12px;
-  background:linear-gradient(135deg,var(--blue),var(--blue2));
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--blue),
+      var(--blue2)
+    );
+
   color:#031018;
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:.3px;
+
+  font-size:11px;
+  font-weight:950;
+
+  letter-spacing:.35px;
+
+  box-shadow:
+    0 8px 25px rgba(22,126,224,.18);
+
+  transition:
+    transform .15s ease,
+    filter .15s ease;
 }
+
+.create-btn:active{
+  transform:scale(.985);
+  filter:brightness(.95);
+}
+
 
 /* SECTION */
 
 .section-heading{
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  margin:20px 2px 9px;
+  justify-content:space-between;
+
+  margin:
+    0 2px
+    10px;
 }
 
 .section-title{
-  font-size:12px;
-  font-weight:900;
+  font-size:13px;
+  font-weight:950;
 }
 
 .section-sub{
-  font-size:10px;
   color:var(--muted2);
+  font-size:10px;
+  font-family:var(--mono);
 }
+
 
 /* FILTERS */
 
 .filters{
   display:flex;
   gap:6px;
+
   overflow-x:auto;
+
+  padding-bottom:2px;
+  margin-bottom:11px;
+
   scrollbar-width:none;
-  margin-bottom:10px;
 }
 
 .filters::-webkit-scrollbar{
@@ -312,35 +516,134 @@ button{
 }
 
 .filter{
-  white-space:nowrap;
-  padding:7px 11px;
+  flex-shrink:0;
+
+  padding:8px 12px;
+
   border-radius:20px;
-  border:1px solid var(--border);
-  background:var(--card2);
+
   color:var(--muted);
+
+  background:var(--surface2);
+  border:1px solid var(--border);
+
   font-size:10px;
-  font-weight:800;
+  font-weight:850;
 }
 
 .filter.active{
-  color:var(--blue);
-  border-color:#1c4a6e;
+  color:var(--blue3);
+
   background:#102337;
+  border-color:#245477;
 }
 
-/* LAUNCH CARDS */
+
+/* EMPTY STATE */
+
+.empty{
+  display:none;
+
+  padding:43px 18px;
+
+  text-align:center;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(12,19,29,.95),
+      rgba(8,13,20,.95)
+    );
+
+  border:1px dashed #263b51;
+
+  border-radius:var(--radius);
+
+  animation:fadeIn .25s ease;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(5px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.empty-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  width:58px;
+  height:58px;
+
+  margin:0 auto 13px;
+
+  border-radius:17px;
+
+  background:var(--blue-dim);
+  border:1px solid rgba(61,169,255,.18);
+
+  font-size:27px;
+}
+
+.empty-title{
+  font-size:14px;
+  font-weight:900;
+}
+
+.empty-text{
+  max-width:310px;
+
+  margin:5px auto 0;
+
+  color:var(--muted);
+
+  font-size:10px;
+  line-height:1.55;
+}
+
+.empty-create{
+  height:42px;
+
+  margin-top:16px;
+
+  padding:0 18px;
+
+  border-radius:11px;
+
+  background:var(--blue);
+
+  color:#031018;
+
+  font-size:10px;
+  font-weight:950;
+}
+
+
+/* LAUNCH LIST */
 
 .launch-list{
   display:flex;
   flex-direction:column;
-  gap:9px;
+  gap:10px;
 }
 
 .launch-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
   padding:14px;
+
+  background:var(--surface);
+
+  border:1px solid var(--border);
+
+  border-radius:var(--radius);
+
+  animation:fadeIn .2s ease;
 }
 
 .launch-top{
@@ -352,10 +655,15 @@ button{
 .launch-logo{
   width:48px;
   height:48px;
+
   border-radius:13px;
+
   object-fit:cover;
-  background:#0a1018;
+
   border:1px solid var(--border2);
+
+  background:#090f17;
+
   flex-shrink:0;
 }
 
@@ -363,9 +671,18 @@ button{
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:900;
-  font-size:18px;
-  background:linear-gradient(135deg,var(--blue),var(--purple));
+
+  color:white;
+
+  font-size:17px;
+  font-weight:950;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--blue),
+      var(--purple)
+    );
 }
 
 .launch-info{
@@ -376,40 +693,49 @@ button{
 .launch-name{
   font-size:14px;
   font-weight:900;
-  white-space:nowrap;
+
   overflow:hidden;
+  white-space:nowrap;
   text-overflow:ellipsis;
 }
 
 .launch-symbol{
-  color:var(--blue);
-  font-size:10px;
-  font-weight:800;
   margin-top:1px;
+
+  color:var(--blue);
+
+  font-family:var(--mono);
+
+  font-size:9px;
+  font-weight:800;
 }
 
 .launch-status{
   padding:5px 8px;
+
   border-radius:7px;
-  font-size:8px;
-  font-weight:900;
+
+  font-size:7px;
+  font-weight:950;
+
+  letter-spacing:.3px;
 }
 
 .status-live{
   color:var(--green);
   background:var(--green-dim);
-  border:1px solid #22d39a30;
+  border:1px solid rgba(34,211,154,.18);
 }
 
 .status-upcoming{
   color:var(--yellow);
   background:var(--yellow-dim);
-  border:1px solid #f5c14a30;
+  border:1px solid rgba(244,196,82,.18);
 }
 
 .status-ended{
   color:var(--muted);
-  background:#18212d;
+  background:#17202c;
   border:1px solid var(--border);
 }
 
@@ -420,94 +746,94 @@ button{
 .progress-head{
   display:flex;
   justify-content:space-between;
-  font-size:9px;
-  color:var(--muted);
+
   margin-bottom:6px;
+
+  color:var(--muted);
+
+  font-size:9px;
 }
 
 .progress-bar{
   height:6px;
-  background:#182331;
-  border-radius:20px;
+
   overflow:hidden;
+
+  border-radius:20px;
+
+  background:#182432;
 }
 
 .progress-fill{
   height:100%;
+
   border-radius:20px;
-  background:linear-gradient(90deg,var(--blue),var(--purple));
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--blue),
+      var(--purple)
+    );
 }
 
 .launch-meta{
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
   gap:6px;
+
   margin-top:12px;
 }
 
 .meta{
-  background:#0a1018;
-  border:1px solid #182332;
-  border-radius:9px;
   padding:8px;
+
+  background:#090f17;
+
+  border:1px solid #172432;
+
+  border-radius:9px;
 }
 
 .meta-label{
   color:var(--muted2);
-  font-size:8px;
+
+  font-size:7px;
+  font-weight:700;
+
   text-transform:uppercase;
-  letter-spacing:.4px;
+
+  letter-spacing:.45px;
 }
 
 .meta-value{
   margin-top:2px;
+
   font-size:10px;
-  font-weight:800;
+  font-weight:850;
 }
 
 .launch-open{
   width:100%;
   height:40px;
-  border-radius:10px;
+
   margin-top:10px;
-  background:var(--card2);
+
+  border-radius:10px;
+
+  color:var(--text2);
+
+  background:var(--surface2);
+
   border:1px solid var(--border);
-  color:#d7e2ed;
+
   font-size:10px;
   font-weight:900;
 }
 
-.launch-open:active,
-.create-btn:active{
-  transform:scale(.98);
-}
-
-/* EMPTY */
-
-.empty{
-  display:none;
-  text-align:center;
-  padding:35px 15px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-}
-
-.empty-icon{
-  font-size:28px;
-  margin-bottom:8px;
-}
-
-.empty-title{
-  font-size:13px;
-  font-weight:800;
-}
-
-.empty-text{
-  color:var(--muted);
-  font-size:10px;
-  margin-top:4px;
-}
 
 /* CREATE SCREEN */
 
@@ -519,24 +845,34 @@ button{
   display:flex;
   align-items:center;
   gap:7px;
+
+  margin-bottom:20px;
+
+  background:none;
+
   color:var(--muted);
+
   font-size:11px;
-  font-weight:800;
-  margin-bottom:18px;
+  font-weight:850;
 }
 
 .form-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
   padding:15px;
+
   margin-bottom:10px;
+
+  background:var(--surface);
+
+  border:1px solid var(--border);
+
+  border-radius:var(--radius);
 }
 
 .form-title{
+  margin-bottom:13px;
+
   font-size:12px;
-  font-weight:900;
-  margin-bottom:12px;
+  font-weight:950;
 }
 
 .form-group{
@@ -549,53 +885,95 @@ button{
 
 .form-label{
   display:block;
+
+  margin-bottom:6px;
+
   color:var(--muted);
-  font-size:9px;
-  font-weight:800;
+
+  font-size:8px;
+  font-weight:850;
+
   text-transform:uppercase;
   letter-spacing:.6px;
-  margin-bottom:6px;
 }
 
 .form-input,
 .form-select{
   width:100%;
-  height:44px;
-  border-radius:10px;
-  border:1px solid #253244;
-  background:#080e16;
+  height:45px;
+
   padding:0 12px;
-  font-size:12px;
+
+  border-radius:10px;
+
+  background:#080e15;
+
+  border:1px solid #233144;
+
+  font-size:11px;
+
+  transition:
+    border-color .15s ease,
+    box-shadow .15s ease;
+}
+
+textarea.form-input{
+  height:84px;
+
+  padding-top:11px;
+
+  resize:none;
+}
+
+.form-input::placeholder{
+  color:#4e5e71;
 }
 
 .form-input:focus,
 .form-select:focus{
-  border-color:var(--blue);
+  border-color:#3189c9;
+
+  box-shadow:
+    0 0 0 3px rgba(61,169,255,.08);
 }
 
 .form-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
   gap:8px;
 }
 
 .type-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
   gap:8px;
 }
 
 .type-option{
-  padding:13px 10px;
+  padding:13px 11px;
+
   border-radius:11px;
-  background:#0a1018;
+
+  background:#090f17;
+
   border:1px solid var(--border);
-  cursor:pointer;
+
+  transition:.15s ease;
 }
 
 .type-option.active{
-  border-color:#287db5;
-  background:#0d2030;
+  background:#0c2031;
+
+  border-color:#2b82bd;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(61,169,255,.08);
 }
 
 .type-name{
@@ -605,42 +983,70 @@ button{
 
 .type-desc{
   margin-top:3px;
+
   color:var(--muted);
-  font-size:9px;
-  line-height:1.4;
+
+  font-size:8px;
+  line-height:1.45;
 }
 
 .launch-submit{
   width:100%;
-  height:48px;
+  height:49px;
+
   border-radius:12px;
-  background:linear-gradient(135deg,var(--blue),var(--blue2));
-  color:#031018;
-  font-size:12px;
-  font-weight:900;
+
   margin-top:5px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--blue),
+      var(--blue2)
+    );
+
+  color:#031018;
+
+  font-size:11px;
+  font-weight:950;
+
+  box-shadow:
+    0 8px 25px rgba(22,126,224,.16);
 }
 
 .notice{
   padding:11px 12px;
-  border-radius:10px;
-  background:var(--yellow-dim);
-  border:1px solid #f5c14a25;
-  color:#d9b85d;
-  font-size:9px;
-  line-height:1.5;
+
   margin-top:10px;
+
+  border-radius:11px;
+
+  color:#d7b85d;
+
+  background:var(--yellow-dim);
+
+  border:1px solid rgba(244,196,82,.15);
+
+  font-size:8px;
+  line-height:1.6;
 }
 
-/* DETAIL MODAL */
+
+/* MODAL */
 
 .modal{
   position:fixed;
   inset:0;
+
   z-index:500;
+
   display:none;
   align-items:flex-end;
-  background:rgba(0,0,0,.68);
+
+  background:rgba(0,0,0,.72);
+
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
 }
 
 .modal.show{
@@ -649,69 +1055,106 @@ button{
 
 .modal-box{
   width:100%;
-  max-width:680px;
-  margin:0 auto;
-  background:var(--bg2);
-  border:1px solid var(--border2);
-  border-bottom:0;
-  border-radius:20px 20px 0 0;
-  padding:18px 14px 28px;
-  max-height:85vh;
+  max-width:700px;
+
+  max-height:86vh;
+
   overflow:auto;
+
+  margin:0 auto;
+
+  padding:
+    18px
+    14px
+    calc(28px + env(safe-area-inset-bottom));
+
+  background:var(--bg2);
+
+  border:
+    1px solid var(--border2);
+
+  border-bottom:0;
+
+  border-radius:
+    22px
+    22px
+    0
+    0;
 }
 
 .modal-head{
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  margin-bottom:15px;
+  justify-content:space-between;
+
+  margin-bottom:16px;
 }
 
 .modal-title{
   font-size:16px;
-  font-weight:900;
+  font-weight:950;
 }
 
 .modal-close{
   width:32px;
   height:32px;
+
   border-radius:50%;
-  background:var(--card2);
+
+  background:var(--surface2);
+
   color:var(--muted);
+
   font-size:18px;
 }
 
 .detail-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
   gap:8px;
 }
 
 .detail-box{
   padding:12px;
-  background:var(--card);
-  border:1px solid var(--border);
+
   border-radius:11px;
+
+  background:var(--surface);
+
+  border:1px solid var(--border);
 }
 
 .detail-label{
   color:var(--muted);
-  font-size:8px;
+
+  font-size:7px;
+  font-weight:800;
+
   text-transform:uppercase;
 }
 
 .detail-value{
   margin-top:4px;
+
   font-size:12px;
   font-weight:900;
 }
 
+
 /* FOOTER */
 
 .footer{
-  text-align:center;
   margin-top:28px;
+
+  padding:0 10px;
+
+  text-align:center;
+
   color:var(--muted2);
+
   font-size:9px;
   line-height:1.7;
 }
@@ -720,37 +1163,76 @@ button{
   color:var(--muted);
 }
 
+
 /* TOAST */
 
 .toast{
   position:fixed;
-  bottom:25px;
+
   left:50%;
-  transform:translateX(-50%) translateY(20px);
-  background:var(--card3);
-  border:1px solid var(--border2);
-  padding:10px 16px;
+  bottom:
+    calc(24px + env(safe-area-inset-bottom));
+
+  z-index:900;
+
+  transform:
+    translateX(-50%)
+    translateY(15px);
+
+  max-width:
+    calc(100vw - 35px);
+
+  padding:10px 15px;
+
   border-radius:11px;
-  font-size:11px;
-  font-weight:800;
+
+  background:var(--surface3);
+
+  border:1px solid var(--border2);
+
+  color:var(--text);
+
+  font-size:10px;
+  font-weight:850;
+
+  white-space:nowrap;
+
   opacity:0;
   pointer-events:none;
-  transition:.25s;
-  z-index:900;
-  white-space:nowrap;
+
+  transition:
+    opacity .2s ease,
+    transform .2s ease;
 }
 
 .toast.show{
   opacity:1;
-  transform:translateX(-50%) translateY(0);
+
+  transform:
+    translateX(-50%)
+    translateY(0);
 }
+
+
+/* LOADING */
+
+.loading{
+  opacity:.55;
+  pointer-events:none;
+}
+
 
 /* RESPONSIVE */
 
 @media(max-width:390px){
 
+  .app{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
   .hero h1{
-    font-size:24px;
+    font-size:27px;
   }
 
   .network{
@@ -764,13 +1246,18 @@ button{
   .launch-meta .meta:last-child{
     grid-column:1/-1;
   }
+
 }
+
 </style>
 </head>
+
 
 <body>
 
 <div class="app">
+
+<!-- HEADER -->
 
 <header class="header">
 
@@ -779,32 +1266,53 @@ button{
     <img
       class="logo"
       src="https://raw.githubusercontent.com/aytekinm099-pixel/Noventra-Signal/main/logo.png"
-      onerror="this.style.display='none'"
       alt="Noventra"
+      onerror="this.style.display='none'"
     >
 
     <div>
-      <div class="brand-title">Noventra Launch</div>
-      <div class="brand-sub" data-i18n="subtitle">
+
+      <div class="brand-title">
+        Noventra Launch
+      </div>
+
+      <div
+        class="brand-sub"
+        data-i18n="subtitle"
+      >
         TON Launchpad
       </div>
+
     </div>
 
   </div>
 
+
   <div class="header-right">
 
     <div class="network">
+
+      <span class="network-dot"></span>
+
       TON MAINNET
+
     </div>
+
 
     <div class="lang-area">
 
-      <button class="lang-btn" id="langBtn">
+      <button
+        class="lang-btn"
+        id="langBtn"
+      >
         EN ▾
       </button>
 
-      <div class="lang-menu" id="langMenu">
+
+      <div
+        class="lang-menu"
+        id="langMenu"
+      >
 
         <button data-lang="en">
           🇬🇧 English
@@ -827,132 +1335,206 @@ button{
 
 <main id="homeScreen">
 
-<section class="hero">
+  <section class="hero">
 
-  <div class="badge">
-    NOVENTRA LAUNCHPAD
+    <div class="badge">
+      NOVENTRA LAUNCHPAD
+    </div>
+
+    <h1>
+      <span>Launch.</span>
+      Build. Grow.
+    </h1>
+
+    <p data-i18n="hero">
+      Discover and launch projects on TON with Noventra.
+      Simple tools for builders and communities.
+    </p>
+
+  </section>
+
+
+  <!-- CREATE -->
+
+  <section class="create-card">
+
+    <div class="create-top">
+
+      <div class="create-icon">
+        🚀
+      </div>
+
+      <div class="create-info">
+
+        <div
+          class="create-title"
+          data-i18n="createTitle"
+        >
+          Launch your project
+        </div>
+
+        <div
+          class="create-desc"
+          data-i18n="createDesc"
+        >
+          Create a new TON launch
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="create-btn"
+      id="createBtn"
+      data-i18n="createButton"
+    >
+      + CREATE LAUNCH
+    </button>
+
+  </section>
+
+
+  <!-- FEATURED -->
+
+  <div class="section-heading">
+
+    <div
+      class="section-title"
+      data-i18n="featured"
+    >
+      Featured Launches
+    </div>
+
+    <div class="section-sub">
+      TON
+    </div>
+
   </div>
 
-  <h1>
-    <span>Launch.</span> Build. Grow.
-  </h1>
 
-  <p data-i18n="hero">
-    Discover and launch projects on TON with Noventra.
-    Simple tools for builders and communities.
-  </p>
+  <!-- FILTERS -->
 
-</section>
+  <div class="filters">
+
+    <button
+      class="filter active"
+      data-filter="all"
+      data-i18n="all"
+    >
+      All
+    </button>
+
+    <button
+      class="filter"
+      data-filter="live"
+      data-i18n="live"
+    >
+      Live
+    </button>
+
+    <button
+      class="filter"
+      data-filter="upcoming"
+      data-i18n="upcoming"
+    >
+      Upcoming
+    </button>
+
+    <button
+      class="filter"
+      data-filter="ended"
+      data-i18n="ended"
+    >
+      Ended
+    </button>
+
+  </div>
 
 
-<section class="create-card">
+  <!-- REAL DATA CONTAINER -->
 
-  <div class="create-top">
+  <div
+    class="launch-list"
+    id="launchList"
+  ></div>
 
-    <div class="create-icon">
+
+  <!-- EMPTY -->
+
+  <div
+    class="empty"
+    id="emptyState"
+  >
+
+    <div class="empty-icon">
       🚀
     </div>
 
-    <div class="create-info">
-
-      <div class="create-title" data-i18n="createTitle">
-        Launch your project
-      </div>
-
-      <div class="create-desc" data-i18n="createDesc">
-        Create a new TON launch
-      </div>
-
+    <div
+      class="empty-title"
+      data-i18n="emptyTitle"
+    >
+      No launches yet
     </div>
 
+    <div
+      class="empty-text"
+      data-i18n="emptyText"
+    >
+      There are currently no public launches.
+      Be the first project to launch on Noventra.
+    </div>
+
+
+    <button
+      class="empty-create"
+      id="emptyCreateBtn"
+      data-i18n="firstLaunch"
+    >
+      CREATE FIRST LAUNCH
+    </button>
+
   </div>
 
-  <button class="create-btn" id="createBtn" data-i18n="createButton">
-    + CREATE LAUNCH
-  </button>
 
-</section>
+  <footer class="footer">
 
+    <strong>
+      Noventra Launch
+    </strong>
 
-<div class="section-heading">
+    <br>
 
-  <div class="section-title" data-i18n="featured">
-    Featured Launches
-  </div>
+    <span data-i18n="footer">
+      Launchpad infrastructure for TON · DYOR
+    </span>
 
-  <div class="section-sub">
-    TON
-  </div>
-
-</div>
-
-
-<div class="filters">
-
-  <button class="filter active" data-filter="all">
-    All
-  </button>
-
-  <button class="filter" data-filter="live">
-    Live
-  </button>
-
-  <button class="filter" data-filter="upcoming">
-    Upcoming
-  </button>
-
-  <button class="filter" data-filter="ended">
-    Ended
-  </button>
-
-</div>
-
-
-<div class="launch-list" id="launchList"></div>
-
-
-<div class="empty" id="emptyState">
-
-  <div class="empty-icon">
-    🚀
-  </div>
-
-  <div class="empty-title" data-i18n="emptyTitle">
-    No launches found
-  </div>
-
-  <div class="empty-text" data-i18n="emptyText">
-    New launches will appear here.
-  </div>
-
-</div>
-
-
-<footer class="footer">
-
-  <strong>Noventra Launch</strong>
-
-  <br>
-
-  <span data-i18n="footer">
-    Launchpad infrastructure for TON · DYOR
-  </span>
-
-</footer>
+  </footer>
 
 </main>
 
 
-<!-- CREATE -->
+<!-- CREATE SCREEN -->
 
-<section class="create-screen" id="createScreen">
+<section
+  class="create-screen"
+  id="createScreen"
+>
 
-  <button class="back-btn" id="backBtn">
-    ← <span data-i18n="back">Back</span>
+  <button
+    class="back-btn"
+    id="backBtn"
+  >
+    ←
+    <span data-i18n="back">
+      Back
+    </span>
   </button>
 
 
-  <div class="hero">
+  <section class="hero">
 
     <div class="badge">
       CREATE LAUNCH
@@ -966,25 +1548,36 @@ button{
       Configure your project before connecting the TON blockchain.
     </p>
 
-  </div>
+  </section>
 
+
+  <!-- PROJECT -->
 
   <div class="form-card">
 
-    <div class="form-title" data-i18n="projectInfo">
+    <div
+      class="form-title"
+      data-i18n="projectInfo"
+    >
       Project Information
     </div>
 
 
     <div class="form-group">
 
-      <label class="form-label" data-i18n="projectName">
+      <label
+        class="form-label"
+        for="projectName"
+        data-i18n="projectName"
+      >
         Project Name
       </label>
 
       <input
         class="form-input"
         id="projectName"
+        maxlength="40"
+        autocomplete="off"
         placeholder="Example Project"
       >
 
@@ -993,15 +1586,20 @@ button{
 
     <div class="form-group">
 
-      <label class="form-label" data-i18n="symbol">
+      <label
+        class="form-label"
+        for="tokenSymbol"
+        data-i18n="symbol"
+      >
         Token Symbol
       </label>
 
       <input
         class="form-input"
         id="tokenSymbol"
-        placeholder="TOKEN"
         maxlength="12"
+        autocomplete="off"
+        placeholder="TOKEN"
       >
 
     </div>
@@ -1009,13 +1607,19 @@ button{
 
     <div class="form-group">
 
-      <label class="form-label" data-i18n="logo">
+      <label
+        class="form-label"
+        for="logoUrl"
+        data-i18n="logo"
+      >
         Logo URL
       </label>
 
       <input
         class="form-input"
         id="logoUrl"
+        type="url"
+        autocomplete="off"
         placeholder="https://..."
       >
 
@@ -1024,14 +1628,18 @@ button{
 
     <div class="form-group">
 
-      <label class="form-label" data-i18n="description">
+      <label
+        class="form-label"
+        for="projectDescription"
+        data-i18n="description"
+      >
         Description
       </label>
 
       <textarea
         class="form-input"
         id="projectDescription"
-        style="height:80px;padding-top:12px;resize:none"
+        maxlength="500"
         placeholder="Describe your project..."
       ></textarea>
 
@@ -1040,35 +1648,52 @@ button{
   </div>
 
 
+  <!-- TYPE -->
+
   <div class="form-card">
 
-    <div class="form-title" data-i18n="launchType">
+    <div
+      class="form-title"
+      data-i18n="launchType"
+    >
       Launch Type
     </div>
 
 
     <div class="type-grid">
 
-      <div class="type-option active" data-type="fair">
+      <div
+        class="type-option active"
+        data-type="fair"
+      >
 
         <div class="type-name">
           Fair Launch
         </div>
 
-        <div class="type-desc" data-i18n="fairDesc">
+        <div
+          class="type-desc"
+          data-i18n="fairDesc"
+        >
           Community-first launch model.
         </div>
 
       </div>
 
 
-      <div class="type-option" data-type="presale">
+      <div
+        class="type-option"
+        data-type="presale"
+      >
 
         <div class="type-name">
           Presale
         </div>
 
-        <div class="type-desc" data-i18n="presaleDesc">
+        <div
+          class="type-desc"
+          data-i18n="presaleDesc"
+        >
           Raise funds before public launch.
         </div>
 
@@ -1079,16 +1704,25 @@ button{
   </div>
 
 
+  <!-- TOKEN -->
+
   <div class="form-card">
 
-    <div class="form-title" data-i18n="tokenSettings">
+    <div
+      class="form-title"
+      data-i18n="tokenSettings"
+    >
       Token Settings
     </div>
 
 
     <div class="form-group">
 
-      <label class="form-label" data-i18n="totalSupply">
+      <label
+        class="form-label"
+        for="totalSupply"
+        data-i18n="totalSupply"
+      >
         Total Supply
       </label>
 
@@ -1096,6 +1730,8 @@ button{
         class="form-input"
         id="totalSupply"
         type="number"
+        min="0"
+        step="any"
         placeholder="1000000000"
       >
 
@@ -1106,11 +1742,18 @@ button{
 
       <div class="form-group">
 
-        <label class="form-label" data-i18n="decimals">
+        <label
+          class="form-label"
+          for="decimals"
+          data-i18n="decimals"
+        >
           Decimals
         </label>
 
-        <select class="form-select" id="decimals">
+        <select
+          class="form-select"
+          id="decimals"
+        >
 
           <option value="9">
             9
@@ -1135,7 +1778,11 @@ button{
 
       <div class="form-group">
 
-        <label class="form-label" data-i18n="price">
+        <label
+          class="form-label"
+          for="tokenPrice"
+          data-i18n="price"
+        >
           Token Price
         </label>
 
@@ -1143,6 +1790,7 @@ button{
           class="form-input"
           id="tokenPrice"
           type="number"
+          min="0"
           step="any"
           placeholder="0.001"
         >
@@ -1154,9 +1802,14 @@ button{
   </div>
 
 
+  <!-- SALE -->
+
   <div class="form-card">
 
-    <div class="form-title" data-i18n="saleSettings">
+    <div
+      class="form-title"
+      data-i18n="saleSettings"
+    >
       Sale Settings
     </div>
 
@@ -1165,7 +1818,11 @@ button{
 
       <div class="form-group">
 
-        <label class="form-label" data-i18n="softCap">
+        <label
+          class="form-label"
+          for="softCap"
+          data-i18n="softCap"
+        >
           Soft Cap
         </label>
 
@@ -1173,6 +1830,7 @@ button{
           class="form-input"
           id="softCap"
           type="number"
+          min="0"
           step="any"
           placeholder="50"
         >
@@ -1182,7 +1840,11 @@ button{
 
       <div class="form-group">
 
-        <label class="form-label" data-i18n="hardCap">
+        <label
+          class="form-label"
+          for="hardCap"
+          data-i18n="hardCap"
+        >
           Hard Cap
         </label>
 
@@ -1190,6 +1852,7 @@ button{
           class="form-input"
           id="hardCap"
           type="number"
+          min="0"
           step="any"
           placeholder="500"
         >
@@ -1201,13 +1864,20 @@ button{
 
     <div class="form-group">
 
-      <label class="form-label" data-i18n="currency">
+      <label
+        class="form-label"
+        for="currency"
+        data-i18n="currency"
+      >
         Raise Currency
       </label>
 
-      <select class="form-select" id="currency">
+      <select
+        class="form-select"
+        id="currency"
+      >
 
-        <option>
+        <option value="TON">
           TON
         </option>
 
@@ -1218,14 +1888,21 @@ button{
   </div>
 
 
-  <button class="launch-submit" id="launchSubmit" data-i18n="continue">
+  <button
+    class="launch-submit"
+    id="launchSubmit"
+    data-i18n="continue"
+  >
     CONTINUE
   </button>
 
 
-  <div class="notice" data-i18n="notice">
-    This first version only prepares your launch configuration.
-    Wallet connection and on-chain transactions will be added in a later version.
+  <div
+    class="notice"
+    data-i18n="notice"
+  >
+    This version prepares and stores your launch configuration locally.
+    Wallet connection and on-chain deployment will be connected in the next phase.
   </div>
 
 </section>
@@ -1233,19 +1910,29 @@ button{
 </div>
 
 
-<!-- MODAL -->
+<!-- DETAIL MODAL -->
 
-<div class="modal" id="modal">
+<div
+  class="modal"
+  id="modal"
+>
 
   <div class="modal-box">
 
     <div class="modal-head">
 
-      <div class="modal-title" id="modalTitle">
+      <div
+        class="modal-title"
+        id="modalTitle"
+      >
         Launch
       </div>
 
-      <button class="modal-close" id="modalClose">
+      <button
+        class="modal-close"
+        id="modalClose"
+        aria-label="Close"
+      >
         ×
       </button>
 
@@ -1260,7 +1947,10 @@ button{
           Status
         </div>
 
-        <div class="detail-value" id="detailStatus">
+        <div
+          class="detail-value"
+          id="detailStatus"
+        >
           —
         </div>
 
@@ -1273,7 +1963,10 @@ button{
           Type
         </div>
 
-        <div class="detail-value" id="detailType">
+        <div
+          class="detail-value"
+          id="detailType"
+        >
           —
         </div>
 
@@ -1286,7 +1979,10 @@ button{
           Raised
         </div>
 
-        <div class="detail-value" id="detailRaised">
+        <div
+          class="detail-value"
+          id="detailRaised"
+        >
           —
         </div>
 
@@ -1299,7 +1995,10 @@ button{
           Target
         </div>
 
-        <div class="detail-value" id="detailTarget">
+        <div
+          class="detail-value"
+          id="detailTarget"
+        >
           —
         </div>
 
@@ -1312,163 +2011,367 @@ button{
 </div>
 
 
-<div class="toast" id="toast"></div>
+<div
+  class="toast"
+  id="toast"
+></div>
 
 
 <script>
 
-/* ================================
-   TELEGRAM
-================================ */
+/* =========================================================
+   NOVENTRA LAUNCH
+   Single-file MVP
+   ========================================================= */
 
-const tg = window.Telegram?.WebApp;
+
+/* TELEGRAM */
+
+const tg = window.Telegram?.WebApp || null;
 
 if(tg){
 
-  tg.ready();
-  tg.expand();
-
   try{
-    tg.setHeaderColor?.("#06090f");
-    tg.setBackgroundColor?.("#06090f");
+
+    tg.ready();
+    tg.expand();
+
+    tg.setHeaderColor?.("#05080d");
+    tg.setBackgroundColor?.("#05080d");
+
   }catch{}
 
 }
 
 
-/* ================================
+/* =========================================================
+   CONFIG
+   ========================================================= */
+
+const STORAGE_KEY =
+  "noventra_launch_drafts_v1";
+
+const LANGUAGE_KEY =
+  "noventra_launch_language_v2";
+
+
+/* =========================================================
    STATE
-================================ */
+   ========================================================= */
 
 let lang =
-  localStorage.getItem("noventra_launch_language") || "en";
+  localStorage.getItem(LANGUAGE_KEY) || "en";
 
 let selectedType = "fair";
 
+let activeFilter = "all";
 
-/* ================================
+let currentLaunch = null;
+
+
+/* =========================================================
    TRANSLATIONS
-================================ */
+   ========================================================= */
 
 const T = {
 
-en:{
+  en:{
 
-subtitle:"TON Launchpad",
+    subtitle:"TON Launchpad",
 
-hero:"Discover and launch projects on TON with Noventra. Simple tools for builders and communities.",
+    hero:
+      "Launch your project on TON with Noventra. Built for builders, communities and the next generation of Web3.",
 
-createTitle:"Launch your project",
-createDesc:"Create a new TON launch",
-createButton:"+ CREATE LAUNCH",
+    createTitle:
+      "Launch your project",
 
-featured:"Featured Launches",
+    createDesc:
+      "Create a new TON launch",
 
-emptyTitle:"No launches found",
-emptyText:"New launches will appear here.",
+    createButton:
+      "+ CREATE LAUNCH",
 
-footer:"Launchpad infrastructure for TON · DYOR",
+    featured:
+      "Featured Launches",
 
-back:"Back",
+    all:"All",
+    live:"Live",
+    upcoming:"Upcoming",
+    ended:"Ended",
 
-newLaunch:"Create your launch",
+    emptyTitle:
+      "No launches yet",
 
-newLaunchDesc:
-"Configure your project before connecting the TON blockchain.",
+    emptyText:
+      "There are currently no public launches. Be the first project to launch on Noventra.",
 
-projectInfo:"Project Information",
-projectName:"Project Name",
-symbol:"Token Symbol",
-logo:"Logo URL",
-description:"Description",
+    firstLaunch:
+      "CREATE FIRST LAUNCH",
 
-launchType:"Launch Type",
+    footer:
+      "Launchpad infrastructure for TON · DYOR",
 
-fairDesc:"Community-first launch model.",
-presaleDesc:"Raise funds before public launch.",
+    back:
+      "Back",
 
-tokenSettings:"Token Settings",
-totalSupply:"Total Supply",
-decimals:"Decimals",
-price:"Token Price",
+    newLaunch:
+      "Create your launch",
 
-saleSettings:"Sale Settings",
-softCap:"Soft Cap",
-hardCap:"Hard Cap",
-currency:"Raise Currency",
+    newLaunchDesc:
+      "Configure your project before connecting the TON blockchain.",
 
-continue:"CONTINUE",
+    projectInfo:
+      "Project Information",
 
-notice:
-"This first version only prepares your launch configuration. Wallet connection and on-chain transactions will be added in a later version."
+    projectName:
+      "Project Name",
 
-},
+    symbol:
+      "Token Symbol",
 
-tr:{
+    logo:
+      "Logo URL",
 
-subtitle:"TON Launchpad",
+    description:
+      "Description",
 
-hero:
-"Noventra ile TON üzerinde projeleri keşfet ve başlat. Geliştiriciler ve topluluklar için sade araçlar.",
+    launchType:
+      "Launch Type",
 
-createTitle:"Projenizi başlatın",
-createDesc:"Yeni bir TON launch oluşturun",
-createButton:"+ LAUNCH OLUŞTUR",
+    fairDesc:
+      "Community-first launch model.",
 
-featured:"Öne Çıkan Launch'lar",
+    presaleDesc:
+      "Raise funds before public launch.",
 
-emptyTitle:"Launch bulunamadı",
-emptyText:"Yeni launch'lar burada görünecek.",
+    tokenSettings:
+      "Token Settings",
 
-footer:"TON Launchpad altyapısı · DYOR",
+    totalSupply:
+      "Total Supply",
 
-back:"Geri",
+    decimals:
+      "Decimals",
 
-newLaunch:"Launch oluştur",
+    price:
+      "Token Price",
 
-newLaunchDesc:
-"TON blockchain bağlantısından önce projenizi yapılandırın.",
+    saleSettings:
+      "Sale Settings",
 
-projectInfo:"Proje Bilgileri",
-projectName:"Proje Adı",
-symbol:"Token Sembolü",
-logo:"Logo URL",
-description:"Açıklama",
+    softCap:
+      "Soft Cap",
 
-launchType:"Launch Türü",
+    hardCap:
+      "Hard Cap",
 
-fairDesc:"Topluluk öncelikli launch modeli.",
-presaleDesc:"Herkese açılmadan önce fon toplama.",
+    currency:
+      "Raise Currency",
 
-tokenSettings:"Token Ayarları",
-totalSupply:"Toplam Arz",
-decimals:"Ondalık",
-price:"Token Fiyatı",
+    continue:
+      "CONTINUE",
 
-saleSettings:"Satış Ayarları",
-softCap:"Soft Cap",
-hardCap:"Hard Cap",
-currency:"Toplanacak Para",
+    notice:
+      "This version prepares and stores your launch configuration locally. Wallet connection and on-chain deployment will be connected in the next phase.",
 
-continue:"DEVAM ET",
+    enterName:
+      "Enter a project name.",
 
-notice:
-"Bu ilk sürüm yalnızca launch yapılandırmasını hazırlar. Cüzdan bağlantısı ve blockchain işlemleri sonraki sürümde eklenecektir."
+    enterSymbol:
+      "Enter a token symbol.",
 
-}
+    enterSupply:
+      "Enter total supply.",
+
+    invalidCap:
+      "Hard cap must be greater than or equal to soft cap.",
+
+    invalidPrice:
+      "Enter a valid token price.",
+
+    saved:
+      "Launch configuration saved.",
+
+    localOnly:
+      "Saved locally. Blockchain deployment is not active yet.",
+
+    noFilter:
+      "No launches in this category.",
+
+    liveStatus:
+      "LIVE",
+
+    upcomingStatus:
+      "UPCOMING",
+
+    endedStatus:
+      "ENDED"
+
+  },
+
+
+  tr:{
+
+    subtitle:
+      "TON Launchpad",
+
+    hero:
+      "Projenizi Noventra ile TON üzerinde başlatın. Geliştiriciler, topluluklar ve yeni nesil Web3 için tasarlandı.",
+
+    createTitle:
+      "Projenizi başlatın",
+
+    createDesc:
+      "Yeni bir TON launch oluşturun",
+
+    createButton:
+      "+ LAUNCH OLUŞTUR",
+
+    featured:
+      "Lansmanlar",
+
+    all:
+      "Tümü",
+
+    live:
+      "Canlı",
+
+    upcoming:
+      "Yakında",
+
+    ended:
+      "Sona Erdi",
+
+    emptyTitle:
+      "Henüz launch yok",
+
+    emptyText:
+      "Şu anda yayınlanmış bir launch bulunmuyor. Noventra üzerinde ilk projenizi başlatın.",
+
+    firstLaunch:
+      "İLK LAUNCH'I OLUŞTUR",
+
+    footer:
+      "TON Launchpad altyapısı · DYOR",
+
+    back:
+      "Geri",
+
+    newLaunch:
+      "Launch oluştur",
+
+    newLaunchDesc:
+      "TON blockchain bağlantısından önce projenizi yapılandırın.",
+
+    projectInfo:
+      "Proje Bilgileri",
+
+    projectName:
+      "Proje Adı",
+
+    symbol:
+      "Token Sembolü",
+
+    logo:
+      "Logo URL",
+
+    description:
+      "Açıklama",
+
+    launchType:
+      "Launch Türü",
+
+    fairDesc:
+      "Topluluk öncelikli launch modeli.",
+
+    presaleDesc:
+      "Herkese açılmadan önce fon toplama.",
+
+    tokenSettings:
+      "Token Ayarları",
+
+    totalSupply:
+      "Toplam Arz",
+
+    decimals:
+      "Ondalık",
+
+    price:
+      "Token Fiyatı",
+
+    saleSettings:
+      "Satış Ayarları",
+
+    softCap:
+      "Soft Cap",
+
+    hardCap:
+      "Hard Cap",
+
+    currency:
+      "Toplanacak Para",
+
+    continue:
+      "DEVAM ET",
+
+    notice:
+      "Bu sürüm launch yapılandırmasını yerel olarak hazırlar ve kaydeder. Cüzdan bağlantısı ve blockchain deployment sonraki aşamada eklenecektir.",
+
+    enterName:
+      "Proje adını girin.",
+
+    enterSymbol:
+      "Token sembolünü girin.",
+
+    enterSupply:
+      "Toplam arzı girin.",
+
+    invalidCap:
+      "Hard cap, soft cap değerinden küçük olamaz.",
+
+    invalidPrice:
+      "Geçerli bir token fiyatı girin.",
+
+    saved:
+      "Launch yapılandırması kaydedildi.",
+
+    localOnly:
+      "Yerel olarak kaydedildi. Blockchain deployment henüz aktif değil.",
+
+    noFilter:
+      "Bu kategoride launch bulunmuyor.",
+
+    liveStatus:
+      "CANLI",
+
+    upcomingStatus:
+      "YAKINDA",
+
+    endedStatus:
+      "SONA ERDİ"
+
+  }
 
 };
 
 
-/* ================================
+/* =========================================================
    HELPERS
-================================ */
+   ========================================================= */
 
-const $ = id =>
-  document.getElementById(id);
+const $ =
+  id => document.getElementById(id);
 
-const t = key =>
-  T[lang]?.[key] ?? T.en[key] ?? key;
+
+function t(key){
+
+  return (
+    T[lang]?.[key] ??
+    T.en[key] ??
+    key
+  );
+
+}
 
 
 function haptic(type="light"){
@@ -1482,51 +2385,112 @@ function haptic(type="light"){
 
 function toast(message){
 
-  const el = $("toast");
+  const el =
+    $("toast");
 
-  el.textContent = message;
+  el.textContent =
+    message;
 
   el.classList.add("show");
 
-  clearTimeout(toast.timer);
+  clearTimeout(
+    toast.timer
+  );
 
   toast.timer =
     setTimeout(
-      ()=>el.classList.remove("show"),
-      2200
+      ()=>{
+        el.classList.remove("show");
+      },
+      2400
     );
 
 }
 
 
-/* ================================
+/* =========================================================
+   STORAGE
+   ========================================================= */
+
+function getLaunches(){
+
+  try{
+
+    const raw =
+      localStorage.getItem(
+        STORAGE_KEY
+      );
+
+    if(!raw)
+      return [];
+
+    const parsed =
+      JSON.parse(raw);
+
+    return Array.isArray(parsed)
+      ? parsed
+      : [];
+
+  }catch{
+
+    return [];
+
+  }
+
+}
+
+
+function saveLaunches(items){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(items)
+  );
+
+}
+
+
+/* =========================================================
    LANGUAGE
-================================ */
+   ========================================================= */
 
 function applyLanguage(){
 
-  document.documentElement.lang = lang;
+  document.documentElement.lang =
+    lang;
 
   document
     .querySelectorAll("[data-i18n]")
     .forEach(el=>{
-      el.textContent = t(el.dataset.i18n);
+
+      el.textContent =
+        t(el.dataset.i18n);
+
     });
 
+
   $("langBtn").textContent =
-    (lang==="tr" ? "TR" : "EN") + " ▾";
+    (lang==="tr" ? "TR" : "EN")
+    + " ▾";
+
+
+  renderLaunches(
+    activeFilter
+  );
 
 }
 
 
 function setLanguage(value){
 
-  if(!T[value]) return;
+  if(!T[value])
+    return;
 
-  lang = value;
+  lang =
+    value;
 
   localStorage.setItem(
-    "noventra_launch_language",
+    LANGUAGE_KEY,
     lang
   );
 
@@ -1543,10 +2507,12 @@ function setLanguage(value){
 $("langBtn").addEventListener(
   "click",
   e=>{
+
     e.stopPropagation();
 
     $("langMenu")
       .classList.toggle("open");
+
   }
 );
 
@@ -1558,7 +2524,9 @@ document
     btn.addEventListener(
       "click",
       ()=>{
-        setLanguage(btn.dataset.lang);
+        setLanguage(
+          btn.dataset.lang
+        );
       }
     );
 
@@ -1569,307 +2537,93 @@ document.addEventListener(
   "click",
   e=>{
 
-    if(!e.target.closest(".lang-area")){
+    if(
+      !e.target.closest(
+        ".lang-area"
+      )
+    ){
+
       $("langMenu")
-        .classList.remove("open");
+        .classList.remove(
+          "open"
+        );
+
     }
 
   }
 );
 
 
-/* ================================
-   DEMO LAUNCH DATA
-================================ */
+/* =========================================================
+   SCREEN NAVIGATION
+   ========================================================= */
 
-const launches = [
+function showHome(){
 
-  {
-    id:1,
-    name:"NovaChain",
-    symbol:"NOVA",
-    letter:"N",
-    status:"live",
-    raised:"128 TON",
-    target:"500 TON",
-    progress:26,
-    type:"Fair Launch"
-  },
+  $("createScreen")
+    .style.display = "none";
 
-  {
-    id:2,
-    name:"Froxon",
-    symbol:"FX",
-    letter:"F",
-    status:"upcoming",
-    raised:"0 TON",
-    target:"250 TON",
-    progress:0,
-    type:"Presale"
-  }
+  $("homeScreen")
+    .style.display = "block";
 
-];
-
-
-/* ================================
-   LAUNCH LIST
-================================ */
-
-function renderLaunches(filter="all"){
-
-  const list =
-    $("launchList");
-
-  const empty =
-    $("emptyState");
-
-  const data =
-    filter==="all"
-      ? launches
-      : launches.filter(
-          item=>item.status===filter
-        );
-
-  if(!data.length){
-
-    list.innerHTML="";
-
-    empty.style.display="block";
-
-    return;
-  }
-
-  empty.style.display="none";
-
-  list.innerHTML =
-    data.map(item=>{
-
-      const statusText =
-        item.status==="live"
-          ? "LIVE"
-          : item.status==="upcoming"
-          ? "UPCOMING"
-          : "ENDED";
-
-      const statusClass =
-        item.status==="live"
-          ? "status-live"
-          : item.status==="upcoming"
-          ? "status-upcoming"
-          : "status-ended";
-
-      return `
-
-      <article class="launch-card">
-
-        <div class="launch-top">
-
-          <div class="launch-logo fallback">
-            ${item.letter}
-          </div>
-
-          <div class="launch-info">
-
-            <div class="launch-name">
-              ${item.name}
-            </div>
-
-            <div class="launch-symbol">
-              $${item.symbol}
-            </div>
-
-          </div>
-
-          <div class="launch-status ${statusClass}">
-            ${statusText}
-          </div>
-
-        </div>
-
-
-        <div class="launch-progress">
-
-          <div class="progress-head">
-
-            <span>
-              ${item.raised}
-            </span>
-
-            <span>
-              ${item.target}
-            </span>
-
-          </div>
-
-          <div class="progress-bar">
-
-            <div
-              class="progress-fill"
-              style="width:${item.progress}%"
-            ></div>
-
-          </div>
-
-        </div>
-
-
-        <div class="launch-meta">
-
-          <div class="meta">
-
-            <div class="meta-label">
-              Type
-            </div>
-
-            <div class="meta-value">
-              ${item.type}
-            </div>
-
-          </div>
-
-
-          <div class="meta">
-
-            <div class="meta-label">
-              Raised
-            </div>
-
-            <div class="meta-value">
-              ${item.raised}
-            </div>
-
-          </div>
-
-
-          <div class="meta">
-
-            <div class="meta-label">
-              Progress
-            </div>
-
-            <div class="meta-value">
-              ${item.progress}%
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <button
-          class="launch-open"
-          data-launch="${item.id}"
-        >
-          VIEW LAUNCH
-        </button>
-
-      </article>
-
-      `;
-
-    }).join("");
-
-
-  list
-    .querySelectorAll(".launch-open")
-    .forEach(btn=>{
-
-      btn.addEventListener(
-        "click",
-        ()=>{
-
-          const item =
-            launches.find(
-              x=>x.id===Number(btn.dataset.launch)
-            );
-
-          openLaunch(item);
-
-        }
-      );
-
-    });
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
 
-/* ================================
-   FILTERS
-================================ */
+function showCreate(){
 
-document
-  .querySelectorAll(".filter")
-  .forEach(btn=>{
+  $("homeScreen")
+    .style.display = "none";
 
-    btn.addEventListener(
-      "click",
-      ()=>{
+  $("createScreen")
+    .style.display = "block";
 
-        document
-          .querySelectorAll(".filter")
-          .forEach(x=>
-            x.classList.remove("active")
-          );
-
-        btn.classList.add("active");
-
-        renderLaunches(
-          btn.dataset.filter
-        );
-
-        haptic("light");
-
-      }
-    );
-
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
   });
 
+  setTimeout(
+    ()=>{
+      $("projectName")
+        ?.focus();
+    },
+    180
+  );
 
-/* ================================
-   CREATE SCREEN
-================================ */
+  haptic("light");
+
+}
+
 
 $("createBtn").addEventListener(
   "click",
-  ()=>{
+  showCreate
+);
 
-    $("homeScreen").style.display="none";
 
-    $("createScreen").style.display="block";
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
-
-    haptic("light");
-
-  }
+$("emptyCreateBtn").addEventListener(
+  "click",
+  showCreate
 );
 
 
 $("backBtn").addEventListener(
   "click",
   ()=>{
-
-    $("createScreen").style.display="none";
-
-    $("homeScreen").style.display="block";
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
-
+    showHome();
     haptic("light");
-
   }
 );
 
 
-/* ================================
-   LAUNCH TYPE
-================================ */
+/* =========================================================
+   TYPE SELECTOR
+   ========================================================= */
 
 document
   .querySelectorAll(".type-option")
@@ -1880,15 +2634,24 @@ document
       ()=>{
 
         document
-          .querySelectorAll(".type-option")
-          .forEach(x=>
-            x.classList.remove("active")
-          );
+          .querySelectorAll(
+            ".type-option"
+          )
+          .forEach(item=>{
+            item.classList.remove(
+              "active"
+            );
+          });
 
-        option.classList.add("active");
+
+        option.classList.add(
+          "active"
+        );
+
 
         selectedType =
           option.dataset.type;
+
 
         haptic("light");
 
@@ -1898,169 +2661,942 @@ document
   });
 
 
-/* ================================
-   CREATE SUBMIT
-================================ */
+/* =========================================================
+   VALIDATION
+   ========================================================= */
+
+function validateForm(){
+
+  const name =
+    $("projectName")
+      .value
+      .trim();
+
+  const symbol =
+    $("tokenSymbol")
+      .value
+      .trim()
+      .toUpperCase();
+
+  const supply =
+    Number(
+      $("totalSupply")
+        .value
+    );
+
+  const price =
+    Number(
+      $("tokenPrice")
+        .value || 0
+    );
+
+  const softCap =
+    Number(
+      $("softCap")
+        .value || 0
+    );
+
+  const hardCap =
+    Number(
+      $("hardCap")
+        .value || 0
+    );
+
+
+  if(!name){
+
+    toast(
+      t("enterName")
+    );
+
+    $("projectName")
+      .focus();
+
+    return null;
+
+  }
+
+
+  if(!symbol){
+
+    toast(
+      t("enterSymbol")
+    );
+
+    $("tokenSymbol")
+      .focus();
+
+    return null;
+
+  }
+
+
+  if(
+    !Number.isFinite(supply) ||
+    supply <= 0
+  ){
+
+    toast(
+      t("enterSupply")
+    );
+
+    $("totalSupply")
+      .focus();
+
+    return null;
+
+  }
+
+
+  if(
+    price < 0 ||
+    !Number.isFinite(price)
+  ){
+
+    toast(
+      t("invalidPrice")
+    );
+
+    $("tokenPrice")
+      .focus();
+
+    return null;
+
+  }
+
+
+  if(
+    hardCap > 0 &&
+    softCap > hardCap
+  ){
+
+    toast(
+      t("invalidCap")
+    );
+
+    $("hardCap")
+      .focus();
+
+    return null;
+
+  }
+
+
+  return {
+
+    name,
+    symbol,
+    supply,
+    price,
+    softCap,
+    hardCap
+
+  };
+
+}
+
+
+/* =========================================================
+   CREATE LAUNCH
+   ========================================================= */
 
 $("launchSubmit").addEventListener(
   "click",
   ()=>{
 
-    const name =
-      $("projectName").value.trim();
+    const values =
+      validateForm();
 
-    const symbol =
-      $("tokenSymbol").value.trim();
+    if(!values)
+      return;
 
-    const supply =
-      $("totalSupply").value.trim();
 
-    if(!name){
+    const logo =
+      $("logoUrl")
+        .value
+        .trim();
 
-      toast(
-        lang==="tr"
-          ? "Proje adını girin."
-          : "Enter a project name."
+    const description =
+      $("projectDescription")
+        .value
+        .trim();
+
+    const decimals =
+      Number(
+        $("decimals")
+          .value
       );
 
-      $("projectName").focus();
+    const currency =
+      $("currency")
+        .value;
 
-      return;
-    }
 
-    if(!symbol){
+    const launch = {
 
-      toast(
-        lang==="tr"
-          ? "Token sembolünü girin."
-          : "Enter a token symbol."
-      );
+      id:
+        "draft_" +
+        Date.now(),
 
-      $("tokenSymbol").focus();
+      name:
+        values.name,
 
-      return;
-    }
+      symbol:
+        values.symbol,
 
-    if(!supply){
+      logo:
+        logo,
 
-      toast(
-        lang==="tr"
-          ? "Toplam arzı girin."
-          : "Enter total supply."
-      );
+      description:
+        description,
 
-      $("totalSupply").focus();
+      type:
+        selectedType,
 
-      return;
-    }
+      status:
+        "upcoming",
+
+      raised:
+        0,
+
+      target:
+        values.hardCap,
+
+      progress:
+        0,
+
+      supply:
+        values.supply,
+
+      decimals:
+        decimals,
+
+      price:
+        values.price,
+
+      softCap:
+        values.softCap,
+
+      hardCap:
+        values.hardCap,
+
+      currency:
+        currency,
+
+      createdAt:
+        new Date().toISOString(),
+
+      local:
+        true
+
+    };
+
+
+    const launches =
+      getLaunches();
+
+
+    launches.unshift(
+      launch
+    );
+
+
+    saveLaunches(
+      launches
+    );
 
 
     toast(
-      lang==="tr"
-        ? "Launch yapılandırması hazırlandı."
-        : "Launch configuration prepared."
+      t("saved")
     );
 
     haptic("medium");
+
+
+    setTimeout(
+      ()=>{
+
+        showHome();
+
+        activeFilter =
+          "all";
+
+        document
+          .querySelectorAll(
+            ".filter"
+          )
+          .forEach(btn=>{
+            btn.classList.toggle(
+              "active",
+              btn.dataset.filter ===
+              "all"
+            );
+          });
+
+        renderLaunches(
+          "all"
+        );
+
+      },
+      700
+    );
 
   }
 );
 
 
-/* ================================
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+function getStatusText(
+  status
+){
+
+  if(status==="live")
+    return t("liveStatus");
+
+  if(status==="upcoming")
+    return t("upcomingStatus");
+
+  return t("endedStatus");
+
+}
+
+
+function getStatusClass(
+  status
+){
+
+  if(status==="live")
+    return "status-live";
+
+  if(status==="upcoming")
+    return "status-upcoming";
+
+  return "status-ended";
+
+}
+
+
+/* =========================================================
+   LAUNCH LOGO
+   ========================================================= */
+
+function renderLogo(item){
+
+  if(item.logo){
+
+    return `
+
+      <img
+        class="launch-logo"
+        src="${escapeHtml(item.logo)}"
+        alt=""
+        onerror="this.outerHTML='<div class=&quot;launch-logo fallback&quot;>${escapeHtml((item.symbol||item.name||'N').charAt(0).toUpperCase())}</div>'"
+      >
+
+    `;
+
+  }
+
+
+  const letter =
+    (
+      item.symbol ||
+      item.name ||
+      "N"
+    )
+    .charAt(0)
+    .toUpperCase();
+
+
+  return `
+
+    <div class="launch-logo fallback">
+      ${escapeHtml(letter)}
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   ESCAPE
+   ========================================================= */
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(
+      /[&<>"']/g,
+      char=>({
+
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+
+      }[char])
+    );
+
+}
+
+
+/* =========================================================
+   FORMAT
+   ========================================================= */
+
+function formatNumber(
+  value
+){
+
+  if(
+    value === null ||
+    value === undefined ||
+    value === ""
+  )
+    return "—";
+
+
+  const num =
+    Number(value);
+
+
+  if(!Number.isFinite(num))
+    return "—";
+
+
+  return new Intl.NumberFormat(
+    lang==="tr"
+      ? "tr-TR"
+      : "en-US",
+    {
+      maximumFractionDigits:8
+    }
+  ).format(num);
+
+}
+
+
+/* =========================================================
+   RENDER LAUNCHES
+   ========================================================= */
+
+function renderLaunches(
+  filter="all"
+){
+
+  activeFilter =
+    filter;
+
+
+  const list =
+    $("launchList");
+
+  const empty =
+    $("emptyState");
+
+
+  const launches =
+    getLaunches();
+
+
+  const data =
+    filter==="all"
+      ? launches
+      : launches.filter(
+          item =>
+            item.status ===
+            filter
+        );
+
+
+  if(!data.length){
+
+    list.innerHTML = "";
+
+    empty.style.display =
+      "block";
+
+    empty.querySelector(
+      ".empty-title"
+    ).textContent =
+      launches.length
+        ? t("noFilter")
+        : t("emptyTitle");
+
+    empty.querySelector(
+      ".empty-text"
+    ).textContent =
+      launches.length
+        ? t("noFilter")
+        : t("emptyText");
+
+    return;
+
+  }
+
+
+  empty.style.display =
+    "none";
+
+
+  list.innerHTML =
+    data.map(
+      item=>{
+
+        const target =
+          Number(item.target || 0);
+
+        const raised =
+          Number(item.raised || 0);
+
+
+        const progress =
+          target > 0
+            ? Math.min(
+                100,
+                Math.round(
+                  (
+                    raised /
+                    target
+                  ) * 100
+                )
+              )
+            : 0;
+
+
+        const type =
+          item.type === "presale"
+            ? "Presale"
+            : "Fair Launch";
+
+
+        return `
+
+        <article
+          class="launch-card"
+        >
+
+          <div class="launch-top">
+
+            ${renderLogo(item)}
+
+            <div
+              class="launch-info"
+            >
+
+              <div
+                class="launch-name"
+              >
+                ${escapeHtml(item.name)}
+              </div>
+
+              <div
+                class="launch-symbol"
+              >
+                $${escapeHtml(item.symbol)}
+              </div>
+
+            </div>
+
+            <div
+              class="launch-status ${getStatusClass(item.status)}"
+            >
+              ${getStatusText(item.status)}
+            </div>
+
+          </div>
+
+
+          <div
+            class="launch-progress"
+          >
+
+            <div
+              class="progress-head"
+            >
+
+              <span>
+                ${formatNumber(raised)}
+                ${escapeHtml(item.currency || "TON")}
+              </span>
+
+              <span>
+                ${formatNumber(target)}
+                ${escapeHtml(item.currency || "TON")}
+              </span>
+
+            </div>
+
+
+            <div
+              class="progress-bar"
+            >
+
+              <div
+                class="progress-fill"
+                style="width:${progress}%"
+              ></div>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="launch-meta"
+          >
+
+            <div class="meta">
+
+              <div class="meta-label">
+                Type
+              </div>
+
+              <div class="meta-value">
+                ${type}
+              </div>
+
+            </div>
+
+
+            <div class="meta">
+
+              <div class="meta-label">
+                Raised
+              </div>
+
+              <div class="meta-value">
+                ${formatNumber(raised)}
+                ${escapeHtml(item.currency || "TON")}
+              </div>
+
+            </div>
+
+
+            <div class="meta">
+
+              <div class="meta-label">
+                Progress
+              </div>
+
+              <div class="meta-value">
+                ${progress}%
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <button
+            class="launch-open"
+            data-launch-id="${escapeHtml(item.id)}"
+          >
+            VIEW LAUNCH
+          </button>
+
+        </article>
+
+        `;
+
+      }
+    ).join("");
+
+
+  list
+    .querySelectorAll(
+      ".launch-open"
+    )
+    .forEach(btn=>{
+
+      btn.addEventListener(
+        "click",
+        ()=>{
+
+          const launch =
+            getLaunches()
+              .find(
+                item =>
+                  String(item.id) ===
+                  String(
+                    btn.dataset.launchId
+                  )
+              );
+
+
+          if(launch)
+            openLaunch(
+              launch
+            );
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   FILTERS
+   ========================================================= */
+
+document
+  .querySelectorAll(".filter")
+  .forEach(btn=>{
+
+    btn.addEventListener(
+      "click",
+      ()=>{
+
+        document
+          .querySelectorAll(
+            ".filter"
+          )
+          .forEach(
+            x =>
+              x.classList.remove(
+                "active"
+              )
+          );
+
+
+        btn.classList.add(
+          "active"
+        );
+
+
+        renderLaunches(
+          btn.dataset.filter
+        );
+
+
+        haptic("light");
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
    MODAL
-================================ */
+   ========================================================= */
 
-function openLaunch(item){
+function openLaunch(
+  item
+){
 
-  if(!item) return;
+  currentLaunch =
+    item;
 
-  $("modalTitle").textContent =
-    item.name + " ($" + item.symbol + ")";
 
-  $("detailStatus").textContent =
-    item.status.toUpperCase();
+  $("modalTitle")
+    .textContent =
+      item.name +
+      " ($" +
+      item.symbol +
+      ")";
 
-  $("detailType").textContent =
-    item.type;
 
-  $("detailRaised").textContent =
-    item.raised;
+  $("detailStatus")
+    .textContent =
+      getStatusText(
+        item.status
+      );
 
-  $("detailTarget").textContent =
-    item.target;
+
+  $("detailType")
+    .textContent =
+      item.type === "presale"
+        ? "Presale"
+        : "Fair Launch";
+
+
+  $("detailRaised")
+    .textContent =
+      formatNumber(
+        item.raised
+      ) +
+      " " +
+      (
+        item.currency ||
+        "TON"
+      );
+
+
+  $("detailTarget")
+    .textContent =
+      formatNumber(
+        item.target
+      ) +
+      " " +
+      (
+        item.currency ||
+        "TON"
+      );
+
 
   $("modal")
-    .classList.add("show");
+    .classList.add(
+      "show"
+    );
+
 
   haptic("light");
 
 }
 
 
-$("modalClose").addEventListener(
-  "click",
-  ()=>{
-    $("modal")
-      .classList.remove("show");
-  }
-);
+function closeModal(){
+
+  currentLaunch =
+    null;
+
+  $("modal")
+    .classList.remove(
+      "show"
+    );
+
+}
 
 
-$("modal").addEventListener(
-  "click",
+$("modalClose")
+  .addEventListener(
+    "click",
+    closeModal
+  );
+
+
+$("modal")
+  .addEventListener(
+    "click",
+    e=>{
+
+      if(
+        e.target ===
+        $("modal")
+      ){
+
+        closeModal();
+
+      }
+
+    }
+  );
+
+
+document.addEventListener(
+  "keydown",
   e=>{
 
-    if(e.target === $("modal")){
-      $("modal")
-        .classList.remove("show");
+    if(
+      e.key === "Escape"
+    ){
+
+      closeModal();
+
     }
 
   }
 );
 
 
-/* ================================
-   TELEGRAM BACK
-================================ */
+/* =========================================================
+   TELEGRAM BACK BUTTON
+   ========================================================= */
 
 if(tg?.BackButton){
 
   tg.BackButton.show();
 
-  tg.BackButton.onClick(()=>{
+  tg.BackButton.onClick(
+    ()=>{
 
-    if($("modal").classList.contains("show")){
+      if(
+        $("modal")
+          .classList
+          .contains("show")
+      ){
 
-      $("modal")
-        .classList.remove("show");
+        closeModal();
 
-      return;
+        return;
+
+      }
+
+
+      if(
+        $("createScreen")
+          .style
+          .display === "block"
+      ){
+
+        showHome();
+
+        return;
+
+      }
+
+
+      tg.close();
+
     }
-
-    if($("createScreen").style.display==="block"){
-
-      $("createScreen").style.display="none";
-
-      $("homeScreen").style.display="block";
-
-      return;
-    }
-
-    tg.close();
-
-  });
+  );
 
 }
 
 
-/* ================================
-   START
-================================ */
+/* =========================================================
+   FORM UX
+   ========================================================= */
+
+$("tokenSymbol")
+  .addEventListener(
+    "input",
+    e=>{
+
+      e.target.value =
+        e.target.value
+          .toUpperCase()
+          .replace(
+            /[^A-Z0-9_$-]/g,
+            ""
+          );
+
+    }
+  );
+
+
+$("totalSupply")
+  .addEventListener(
+    "input",
+    e=>{
+
+      if(
+        Number(e.target.value) < 0
+      ){
+
+        e.target.value = "";
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
 
 applyLanguage();
 
-renderLaunches();
+renderLaunches("all");
 
 </script>
 
